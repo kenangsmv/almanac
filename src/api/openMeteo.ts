@@ -1,3 +1,4 @@
+import { addDays, todayISO } from '../lib/date';
 import { fetchJson } from './http';
 
 export interface City {
@@ -34,21 +35,10 @@ interface GeocodingResponse {
 const DAILY_PARAMS =
   'temperature_2m_max,temperature_2m_min,precipitation_sum,weather_code';
 
-// Open-Meteo's archive dataset lags a few days behind; recent dates must use
-// the forecast endpoint, which also serves the last days and the near future.
 const ARCHIVE_LAG_DAYS = 5;
 
-function toLocalISODate(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
 function shouldUseArchive(date: string): boolean {
-  const cutoff = new Date();
-  cutoff.setDate(cutoff.getDate() - ARCHIVE_LAG_DAYS);
-  return date <= toLocalISODate(cutoff);
+  return date <= addDays(todayISO(), -ARCHIVE_LAG_DAYS);
 }
 
 function toWeather(
