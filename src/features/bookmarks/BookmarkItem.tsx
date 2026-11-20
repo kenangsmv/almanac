@@ -4,10 +4,18 @@ import styles from './BookmarksView.module.css';
 
 interface BookmarkItemProps {
   bookmark: Bookmark;
+  onSelect: (title: string) => void;
 }
 
-export function BookmarkItem({ bookmark }: BookmarkItemProps) {
+function wikiTitleFromUrl(url?: string): string | null {
+  if (!url) return null;
+  const match = url.match(/\/wiki\/(.+)$/);
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
+export function BookmarkItem({ bookmark, onSelect }: BookmarkItemProps) {
   const removeBookmark = useBookmarksStore((state) => state.removeBookmark);
+  const wikiTitle = wikiTitleFromUrl(bookmark.url);
 
   return (
     <li className={styles.item}>
@@ -17,7 +25,15 @@ export function BookmarkItem({ bookmark }: BookmarkItemProps) {
       <div className={styles.body}>
         <span className={styles.kind}>{bookmark.kind}</span>
         <p className={styles.title}>
-          {bookmark.url ? (
+          {wikiTitle ? (
+            <button
+              type="button"
+              className={styles.titleButton}
+              onClick={() => onSelect(wikiTitle)}
+            >
+              {bookmark.title}
+            </button>
+          ) : bookmark.url ? (
             <a
               className={styles.titleLink}
               href={bookmark.url}
