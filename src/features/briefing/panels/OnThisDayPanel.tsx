@@ -31,7 +31,7 @@ export function OnThisDayPanel({ date }: OnThisDayPanelProps) {
           On This Day
         </Typography>
         <AsyncState query={query} loading={loading} isEmpty={hasNoEntries}>
-          {(data) => <OnThisDayContent data={data} />}
+          {(data) => <OnThisDayContent data={data} date={date} />}
         </AsyncState>
       </CardContent>
     </Card>
