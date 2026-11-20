@@ -1,24 +1,17 @@
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import { DateNavigator } from '../features/date/DateNavigator';
+import { useSelectedDate } from '../features/date/useSelectedDate';
+import { formatHuman } from '../lib/date';
 
-/**
- * Placeholder for the date briefing. Date navigation and the multi-source
- * briefing (NASA APOD, Wikipedia On This Day, Open-Meteo, ...) land here.
- */
 export function BriefingPage() {
+  const { selectedDate } = useSelectedDate();
+
   return (
     <Box>
       <Typography variant="h4" component="h1" gutterBottom>
-        Daily Briefing
+        {formatHuman(selectedDate)}
       </Typography>
-      <Typography color="text.secondary" sx={{ mb: 3 }}>
-        Pick a date to assemble a briefing: history, the sky, the weather and
-        who was born.
-      </Typography>
-      <Paper variant="outlined" sx={{ p: 3 }}>
-        <Typography color="text.secondary">
-          Date navigation and data sources are coming next.
-        </Typography>
-      </Paper>
+      <DateNavigator />
     </Box>
   );
 }
