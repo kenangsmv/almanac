@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Tab, Tabs } from '@mui/material';
 import type { OnThisDay } from '../../../api/wikipedia';
+import { PageSummaryDialog } from '../../pageSummary/PageSummaryDialog';
 import { CategoryList } from './CategoryList';
 
 interface OnThisDayContentProps {
@@ -10,6 +11,7 @@ interface OnThisDayContentProps {
 
 export function OnThisDayContent({ data, date }: OnThisDayContentProps) {
   const [tab, setTab] = useState(0);
+  const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
   const categories = [
     { label: 'Events', items: data.events, kind: 'event' as const },
     { label: 'Births', items: data.births, kind: 'person' as const },
@@ -24,7 +26,13 @@ export function OnThisDayContent({ data, date }: OnThisDayContentProps) {
           <Tab key={category.label} label={category.label} />
         ))}
       </Tabs>
-      <CategoryList items={active.items} kind={active.kind} date={date} />
+      <CategoryList
+        items={active.items}
+        kind={active.kind}
+        date={date}
+        onSelect={setSelectedTitle}
+      />
+      <PageSummaryDialog title={selectedTitle} onClose={() => setSelectedTitle(null)} />
     </>
   );
 }

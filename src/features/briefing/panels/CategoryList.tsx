@@ -9,9 +9,10 @@ interface CategoryListProps {
   items: OnThisDayItem[];
   kind: BookmarkKind;
   date: string;
+  onSelect: (title: string) => void;
 }
 
-export function CategoryList({ items, kind, date }: CategoryListProps) {
+export function CategoryList({ items, kind, date, onSelect }: CategoryListProps) {
   return (
     <List dense disablePadding>
       {items.slice(0, MAX_ITEMS).map((item, index) => (
@@ -20,6 +21,7 @@ export function CategoryList({ items, kind, date }: CategoryListProps) {
           item={item}
           kind={kind}
           date={date}
+          onSelect={onSelect}
         />
       ))}
     </List>
