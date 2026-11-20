@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { DateNavigator } from '../features/date/DateNavigator';
 import { useSelectedDate } from '../features/date/useSelectedDate';
+import { ApodPanel } from '../features/briefing/panels/ApodPanel';
 import { formatHuman } from '../lib/date';
 
 export function BriefingPage() {
@@ -12,6 +13,9 @@ export function BriefingPage() {
         {formatHuman(selectedDate)}
       </Typography>
       <DateNavigator />
+      <Box sx={{ mt: 3 }}>
+        <ApodPanel date={selectedDate} />
+      </Box>
     </Box>
   );
 }
