@@ -5,7 +5,6 @@ import { BriefingLayout } from '../features/briefing/BriefingLayout';
 import { ApodPanel } from '../features/briefing/panels/ApodPanel';
 import { OnThisDayPanel } from '../features/briefing/panels/OnThisDayPanel';
 import { WeatherPanel } from '../features/briefing/panels/WeatherPanel';
-import { DEFAULT_CITY } from '../features/location/defaultLocation';
 import { formatHuman } from '../lib/date';
 
 export function BriefingPage() {
@@ -21,7 +20,7 @@ export function BriefingPage() {
         <BriefingLayout>
           <ApodPanel date={selectedDate} />
           <OnThisDayPanel date={selectedDate} />
-          <WeatherPanel date={selectedDate} city={DEFAULT_CITY} />
+          <WeatherPanel date={selectedDate} />
         </BriefingLayout>
       </Box>
     </Box>

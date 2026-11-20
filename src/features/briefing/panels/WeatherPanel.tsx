@@ -1,12 +1,13 @@
-import { Card, CardContent, Skeleton, Typography } from '@mui/material';
-import type { City, Weather } from '../../../api/openMeteo';
+import { Box, Card, CardContent, Skeleton, Typography } from '@mui/material';
+import type { Weather } from '../../../api/openMeteo';
+import { CitySearch } from '../../location/CitySearch';
+import { useLocationStore } from '../../location/locationStore';
 import { AsyncState } from '../AsyncState';
 import { useWeather } from '../useWeather';
 import { WeatherContent } from './WeatherContent';
 
 interface WeatherPanelProps {
   date: string;
-  city: City;
 }
 
 const loading = (
@@ -26,7 +27,8 @@ function hasNoReading(weather: Weather): boolean {
   );
 }
 
-export function WeatherPanel({ date, city }: WeatherPanelProps) {
+export function WeatherPanel({ date }: WeatherPanelProps) {
+  const city = useLocationStore((state) => state.selectedCity);
   const query = useWeather(city.latitude, city.longitude, date);
 
   return (
@@ -35,6 +37,9 @@ export function WeatherPanel({ date, city }: WeatherPanelProps) {
         <Typography variant="h6" gutterBottom>
           Weather
         </Typography>
+        <Box sx={{ mb: 2 }}>
+          <CitySearch />
+        </Box>
         <AsyncState query={query} loading={loading} isEmpty={hasNoReading}>
           {(weather) => <WeatherContent city={city} weather={weather} />}
         </AsyncState>
