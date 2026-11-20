@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { Alert, Typography } from '@mui/material';
-import { AlmanacError } from '../../api/http';
+import { AlmanacError } from '../api/http';
 
 interface AsyncStateProps<T> {
   query: UseQueryResult<T>;

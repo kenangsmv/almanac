@@ -1,5 +1,5 @@
 import { Card, CardContent, Skeleton, Typography } from '@mui/material';
-import { AsyncState } from '../AsyncState';
+import { AsyncState } from '../../../components/AsyncState';
 import { useApod } from '../useApod';
 import { ApodContent } from './ApodContent';
 

@@ -2,7 +2,7 @@ import { Box, Card, CardContent, Skeleton, Typography } from '@mui/material';
 import type { Weather } from '../../../api/openMeteo';
 import { CitySearch } from '../../location/CitySearch';
 import { useLocationStore } from '../../location/locationStore';
-import { AsyncState } from '../AsyncState';
+import { AsyncState } from '../../../components/AsyncState';
 import { useWeather } from '../useWeather';
 import { WeatherContent } from './WeatherContent';
 

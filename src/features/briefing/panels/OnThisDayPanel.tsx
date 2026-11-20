@@ -1,6 +1,6 @@
 import { Card, CardContent, Skeleton, Typography } from '@mui/material';
 import type { OnThisDay } from '../../../api/wikipedia';
-import { AsyncState } from '../AsyncState';
+import { AsyncState } from '../../../components/AsyncState';
 import { useOnThisDay } from '../useOnThisDay';
 import { OnThisDayContent } from './OnThisDayContent';
 
