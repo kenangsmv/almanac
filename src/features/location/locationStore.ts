@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { City } from '../../api/openMeteo';
-import { DEFAULT_CITY } from './defaultLocation';
+import { PRESET_CITIES } from '../../api/openMeteo';
 
 interface LocationState {
   selectedCity: City;
@@ -11,7 +11,7 @@ interface LocationState {
 export const useLocationStore = create<LocationState>()(
   persist(
     (set) => ({
-      selectedCity: DEFAULT_CITY,
+      selectedCity: PRESET_CITIES[0],
       setCity: (city) => set({ selectedCity: city }),
     }),
     {

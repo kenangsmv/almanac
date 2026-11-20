@@ -1,53 +1,34 @@
-import type { Bookmark } from '../../store/bookmarksStore';
+import { Link as RouterLink } from 'react-router-dom';
+import type { Bookmark, BookmarkKind } from '../../store/bookmarksStore';
 import { useBookmarksStore } from '../../store/bookmarksStore';
+import { formatHuman } from '../../lib/date';
 import styles from './BookmarksView.module.css';
+
+const KIND_PATH: Record<BookmarkKind, string> = {
+  date: '/sky',
+  sky: '/sky',
+  weather: '/weather',
+  history: '/history',
+};
 
 interface BookmarkItemProps {
   bookmark: Bookmark;
-  onSelect: (title: string) => void;
 }
 
-function wikiTitleFromUrl(url?: string): string | null {
-  if (!url) return null;
-  const match = url.match(/\/wiki\/(.+)$/);
-  return match ? decodeURIComponent(match[1]) : null;
-}
-
-export function BookmarkItem({ bookmark, onSelect }: BookmarkItemProps) {
+export function BookmarkItem({ bookmark }: BookmarkItemProps) {
   const removeBookmark = useBookmarksStore((state) => state.removeBookmark);
-  const wikiTitle = wikiTitleFromUrl(bookmark.url);
+  const to = { pathname: KIND_PATH[bookmark.kind], search: `?date=${bookmark.date}` };
 
   return (
-    <li className={styles.item}>
+    <li className={styles.card}>
       {bookmark.imageUrl && (
-        <img className={styles.thumb} src={bookmark.imageUrl} alt="" />
+        <img className={styles.cardImage} src={bookmark.imageUrl} alt="" />
       )}
-      <div className={styles.body}>
-        <span className={styles.kind}>{bookmark.kind}</span>
-        <p className={styles.title}>
-          {wikiTitle ? (
-            <button
-              type="button"
-              className={styles.titleButton}
-              onClick={() => onSelect(wikiTitle)}
-            >
-              {bookmark.title}
-            </button>
-          ) : bookmark.url ? (
-            <a
-              className={styles.titleLink}
-              href={bookmark.url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {bookmark.title}
-            </a>
-          ) : (
-            bookmark.title
-          )}
-        </p>
+      <RouterLink className={styles.cardBody} to={to}>
+        <span className={styles.date}>{formatHuman(bookmark.date)}</span>
+        <p className={styles.title}>{bookmark.title}</p>
         {bookmark.subtitle && <p className={styles.subtitle}>{bookmark.subtitle}</p>}
-      </div>
+      </RouterLink>
       <button
         type="button"
         className={styles.remove}

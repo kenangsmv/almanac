@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type BookmarkKind = 'image' | 'event' | 'person';
+export type BookmarkKind = 'date' | 'sky' | 'weather' | 'history';
 
 export interface Bookmark {
   id: string;
@@ -9,7 +9,6 @@ export interface Bookmark {
   title: string;
   subtitle?: string;
   imageUrl?: string;
-  url?: string;
   date: string;
   savedAt: number;
 }
@@ -43,7 +42,7 @@ export const useBookmarksStore = create<BookmarksState>()(
     }),
     {
       name: 'almanac-bookmarks',
-      version: 1,
+      version: 2,
       partialize: (state) => ({ bookmarks: state.bookmarks }),
       migrate: () => ({ bookmarks: [] }),
     },

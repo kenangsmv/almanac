@@ -21,22 +21,34 @@ export function DateNavigator() {
       useFlexGap
       sx={{ alignItems: 'center', flexWrap: 'wrap' }}
     >
-      <IconButton onClick={goToPrevious} aria-label="Previous day">
+      <IconButton
+        onClick={goToPrevious}
+        aria-label="Previous day"
+        sx={{ border: 1, borderColor: 'divider', borderRadius: 2 }}
+      >
         <ChevronLeftIcon />
       </IconButton>
 
       <DatePicker
-        label="Date"
         value={dayjs(selectedDate)}
         onChange={handleDateChange}
         slotProps={{ textField: { size: 'small' } }}
       />
 
-      <IconButton onClick={goToNext} aria-label="Next day">
+      <IconButton
+        onClick={goToNext}
+        aria-label="Next day"
+        sx={{ border: 1, borderColor: 'divider', borderRadius: 2 }}
+      >
         <ChevronRightIcon />
       </IconButton>
 
-      <Button onClick={goToToday} disabled={selectedDate === todayISO()}>
+      <Button
+        onClick={goToToday}
+        disabled={selectedDate === todayISO()}
+        variant="contained"
+        disableElevation
+      >
         Today
       </Button>
     </Stack>
