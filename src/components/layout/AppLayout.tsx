@@ -1,48 +1,38 @@
 import { Link as RouterLink, Outlet, useLocation } from 'react-router-dom';
 import styles from './AppLayout.module.css';
 
-const NAV_ITEMS = [
-  { to: '/', label: 'Briefing' },
-  { to: '/bookmarks', label: 'Bookmarks' },
-] as const;
+const EXPLORE_PATHS = ['/', '/sky', '/weather', '/history'];
 
-/**
- * Application shell: header + nav, routed content area, footer.
- *
- * Styled deliberately with CSS Modules (standard CSS) rather than MUI's styling
- * system, to satisfy the assignment's "at least one significant part styled with
- * standard CSS / CSS Modules" constraint.
- */
 export function AppLayout() {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
+  const exploreActive = EXPLORE_PATHS.includes(pathname);
+  const bookmarksActive = pathname === '/bookmarks';
+
+  const linkClass = (active: boolean) =>
+    active ? `${styles.navLink} ${styles.navLinkActive}` : styles.navLink;
 
   return (
     <div className={styles.shell}>
       <header className={styles.header}>
         <div className={styles.brand}>
-          <span className={styles.logo} aria-hidden="true">
-            📅
-          </span>
+          <span className={styles.dot} aria-hidden="true" />
           <span className={styles.title}>Almanac</span>
         </div>
         <nav className={styles.nav} aria-label="Primary">
-          {NAV_ITEMS.map((item) => {
-            const isActive = pathname === item.to;
-            return (
-              <RouterLink
-                key={item.to}
-                to={item.to}
-                className={
-                  isActive
-                    ? `${styles.navLink} ${styles.navLinkActive}`
-                    : styles.navLink
-                }
-                aria-current={isActive ? 'page' : undefined}
-              >
-                {item.label}
-              </RouterLink>
-            );
-          })}
+          <RouterLink
+            to={{ pathname: '/', search }}
+            className={linkClass(exploreActive)}
+            aria-current={exploreActive ? 'page' : undefined}
+          >
+            Explore
+          </RouterLink>
+          <RouterLink
+            to="/bookmarks"
+            className={linkClass(bookmarksActive)}
+            aria-current={bookmarksActive ? 'page' : undefined}
+          >
+            My Bookmarks
+          </RouterLink>
         </nav>
       </header>
 
