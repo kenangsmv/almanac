@@ -2,13 +2,17 @@ import { Button, IconButton, Stack } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
+import dayjs, { type Dayjs } from 'dayjs';
 import { toISODate, todayISO } from '../../lib/date';
 import { useSelectedDate } from './useSelectedDate';
 
 export function DateNavigator() {
   const { selectedDate, setDate, goToPrevious, goToNext, goToToday } =
     useSelectedDate();
+
+  const handleDateChange = (value: Dayjs | null) => {
+    if (value && value.isValid()) setDate(toISODate(value.toDate()));
+  };
 
   return (
     <Stack
@@ -24,9 +28,7 @@ export function DateNavigator() {
       <DatePicker
         label="Date"
         value={dayjs(selectedDate)}
-        onChange={(value) => {
-          if (value && value.isValid()) setDate(toISODate(value.toDate()));
-        }}
+        onChange={handleDateChange}
         slotProps={{ textField: { size: 'small' } }}
       />
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type SyntheticEvent } from 'react';
 import { Autocomplete, TextField } from '@mui/material';
 import type { City } from '../../api/openMeteo';
 import { useLocationStore } from './locationStore';
@@ -26,15 +26,23 @@ export function CitySearch() {
     ? results
     : [selectedCity, ...results];
 
+  const handleCityChange = (_event: SyntheticEvent, city: City | null) => {
+    if (city) setCity(city);
+  };
+
+  const handleInputChange = (
+    _event: SyntheticEvent,
+    value: string,
+    reason: string,
+  ) => {
+    if (reason === 'input') setRawInput(value);
+  };
+
   return (
     <Autocomplete
       value={selectedCity}
-      onChange={(_, city) => {
-        if (city) setCity(city);
-      }}
-      onInputChange={(_, value, reason) => {
-        if (reason === 'input') setRawInput(value);
-      }}
+      onChange={handleCityChange}
+      onInputChange={handleInputChange}
       options={options}
       getOptionLabel={cityLabel}
       isOptionEqualToValue={(a, b) => a.id === b.id}
