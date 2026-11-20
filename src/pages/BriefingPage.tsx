@@ -1,7 +1,11 @@
 import { Box, Typography } from '@mui/material';
 import { DateNavigator } from '../features/date/DateNavigator';
 import { useSelectedDate } from '../features/date/useSelectedDate';
+import { BriefingLayout } from '../features/briefing/BriefingLayout';
 import { ApodPanel } from '../features/briefing/panels/ApodPanel';
+import { OnThisDayPanel } from '../features/briefing/panels/OnThisDayPanel';
+import { WeatherPanel } from '../features/briefing/panels/WeatherPanel';
+import { DEFAULT_CITY } from '../features/location/defaultLocation';
 import { formatHuman } from '../lib/date';
 
 export function BriefingPage() {
@@ -14,7 +18,11 @@ export function BriefingPage() {
       </Typography>
       <DateNavigator />
       <Box sx={{ mt: 3 }}>
-        <ApodPanel date={selectedDate} />
+        <BriefingLayout>
+          <ApodPanel date={selectedDate} />
+          <OnThisDayPanel date={selectedDate} />
+          <WeatherPanel date={selectedDate} city={DEFAULT_CITY} />
+        </BriefingLayout>
       </Box>
     </Box>
   );

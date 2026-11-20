@@ -1,0 +1,13 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: start;
+  gap: 1.5rem;
+}
+
+/* Mobile layout: collapse to a single column of stacked panels. */
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
