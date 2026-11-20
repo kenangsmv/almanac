@@ -8,10 +8,6 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
-# Vite inlines VITE_* vars at build time, so the NASA key is a build arg.
-ARG VITE_NASA_API_KEY=DEMO_KEY
-ENV VITE_NASA_API_KEY=$VITE_NASA_API_KEY
-
 COPY . .
 RUN npm run build
 

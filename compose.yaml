@@ -1,11 +1,8 @@
 # Single-command run: `docker compose up` (also works with `podman compose up`).
-# The NASA key is read from a local .env file if present, else defaults to DEMO_KEY.
 services:
   web:
     build:
       context: .
-      args:
-        VITE_NASA_API_KEY: ${VITE_NASA_API_KEY:-DEMO_KEY}
     ports:
       - '8080:80'
     restart: unless-stopped

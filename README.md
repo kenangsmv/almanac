@@ -43,7 +43,6 @@ output, with an SPA fallback so client-side routes resolve correctly).
 ### Local development
 
 ```bash
-cp .env.example .env   # optional: add your NASA key
 npm install
 npm run dev            # http://localhost:5173
 ```
@@ -60,13 +59,17 @@ npm run dev            # http://localhost:5173
 
 ## Environment variables
 
-NASA's APOD endpoint needs an API key. `DEMO_KEY` works but is heavily rate-limited;
-get a free personal key (email only) at <https://api.nasa.gov>.
+Almanac needs **no API keys or secrets**. Every data source is a free public API
+callable directly from the browser:
 
-- Copy `.env.example` → `.env` and set `VITE_NASA_API_KEY`.
-- Only `VITE_`-prefixed variables are exposed to the client (Vite convention), and they
-  are inlined at **build time**. In the container, the key is passed as a build arg
-  (see `compose.yaml`); `.env` is git-ignored, `.env.example` is committed.
+- NASA APOD — `science.nasa.gov`'s public APOD feed (the documented
+  `api.nasa.gov/planetary/apod` endpoint currently returns a placeholder logo instead
+  of the image, so this project uses NASA's own `science.nasa.gov` APOD feed, which the
+  brief's "you may add other freely accessible public APIs" clause allows).
+- Wikipedia (On This Day + page summaries) and Open-Meteo (weather + geocoding) — also
+  key-free.
+
+There is nothing to configure and no `.env` to create.
 
 ## Key decisions
 
