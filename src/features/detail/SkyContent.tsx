@@ -1,6 +1,7 @@
 import { Box, Link, Typography } from '@mui/material';
 import type { Apod } from '../../api/nasa';
 import { Eyebrow } from '../../components/Eyebrow';
+import { RichText } from '../../components/RichText';
 import { formatHuman } from '../../lib/date';
 import { BookmarkButton } from '../bookmarks/BookmarkButton';
 
@@ -29,10 +30,12 @@ export function SkyContent({ apod }: SkyContentProps) {
           src={imageUrl}
           alt={imageAlt}
           sx={{
-            width: '100%',
+            width: '400px',
+            height: '400px',
             borderRadius: 3,
             display: 'block',
             boxShadow: '0 30px 70px rgba(0, 0, 0, 0.5)',
+            objectFit: 'cover',
           }}
         />
       ) : (
@@ -74,7 +77,9 @@ export function SkyContent({ apod }: SkyContentProps) {
         {credit && (
           <Box>
             <Eyebrow>Credit</Eyebrow>
-            <Typography sx={{ mt: 0.5, fontSize: 14 }}>{credit}</Typography>
+            <Typography sx={{ mt: 0.5, fontSize: 14 }}>
+              <RichText html={credit} />
+            </Typography>
           </Box>
         )}
         <Box>
