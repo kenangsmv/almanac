@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material/styles';
 const colors = {
   bg: '#080B14',
   surface: '#101827',
-  accent: '#7CA8FF',
+  accent: '#A78BFA',
   accent2: '#A78BFA',
   text: '#F5F5F5',
   muted: '#9CA3AF',
