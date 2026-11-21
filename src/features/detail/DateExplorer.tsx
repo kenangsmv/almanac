@@ -1,24 +1,13 @@
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import dayjs, { type Dayjs } from 'dayjs';
 import { Eyebrow } from '../../components/Eyebrow';
-import { formatHuman, toISODate, todayISO } from '../../lib/date';
-import { useBookmark } from '../bookmarks/useBookmark';
+import { toISODate, todayISO } from '../../lib/date';
 import { useSelectedDate } from '../date/useSelectedDate';
 
 export function DateExplorer() {
   const { selectedDate, setDate, goToPrevious, goToNext, goToToday } = useSelectedDate();
   const value = dayjs(selectedDate);
-
-  const { saved, toggle } = useBookmark({
-    id: `date:${selectedDate}`,
-    kind: 'date',
-    title: formatHuman(selectedDate),
-    subtitle: 'Saved date',
-    date: selectedDate,
-  });
 
   const handleCalendar = (next: Dayjs | null) => {
     if (next && next.isValid()) setDate(toISODate(next.toDate()));
@@ -75,17 +64,6 @@ export function DateExplorer() {
         minDate={dayjs('1940-01-01')}
         sx={{ width: '100%' }}
       />
-
-      <Button
-        onClick={toggle}
-        variant="outlined"
-        fullWidth
-        color={saved ? 'secondary' : 'primary'}
-        startIcon={saved ? <BookmarkIcon /> : <BookmarkBorderIcon />}
-        sx={{ mt: 2 }}
-      >
-        {saved ? 'Date saved' : 'Save this date'}
-      </Button>
     </Box>
   );
 }
