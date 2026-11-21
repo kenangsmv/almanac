@@ -18,7 +18,7 @@ export function DetailPage({ view }: DetailPageProps) {
   const View = VIEWS[view];
 
   return (
-    <DetailLayout view={view}>
+    <DetailLayout>
       <View />
     </DetailLayout>
   );
