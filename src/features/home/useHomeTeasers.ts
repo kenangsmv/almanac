@@ -1,6 +1,6 @@
 import type { OnThisDayItem } from '../../api/wikipedia';
 import { useApod } from '../briefing/useApod';
-import { useOnThisDay } from '../briefing/useOnThisDay';
+import { useOnThisDaySelected } from '../briefing/useOnThisDaySelected';
 import { useWeather } from '../briefing/useWeather';
 import { describeWeatherCode, weatherGradient } from '../briefing/panels/weatherCodes';
 import { useLocationStore } from '../location/locationStore';
@@ -16,7 +16,7 @@ function truncate(text: string, max: number): string {
   return text.length > max ? `${text.slice(0, max)}…` : text;
 }
 
-function featuredEvent(items: OnThisDayItem[], year: number): OnThisDayItem | null {
+export function featuredEvent(items: OnThisDayItem[], year: number): OnThisDayItem | null {
   let best: OnThisDayItem | null = null;
   for (const item of items) {
     if (!item.pages[0]?.thumbnail || item.year == null) continue;
@@ -31,7 +31,7 @@ export function useHomeTeasers(date: string): TeaserCardProps[] {
   const city = useLocationStore((state) => state.selectedCity);
   const apod = useApod(date);
   const weather = useWeather(city.latitude, city.longitude, date);
-  const history = useOnThisDay(date);
+  const history = useOnThisDaySelected(date);
 
   const year = Number(date.slice(0, 4));
   const search = `?date=${date}`;
@@ -42,7 +42,7 @@ export function useHomeTeasers(date: string): TeaserCardProps[] {
     : sky
       ? sky.title
       : 'Sky unavailable for this date';
-  const skyBg = sky?.imageUrl ? `url("${sky.imageUrl}")` : FALLBACK.sky;
+  const skyImage = sky?.imageUrl;
 
   const wx = weather.data;
   const wxTemp = wx?.tempMax != null ? Math.round(wx.tempMax) : '—';
@@ -53,18 +53,16 @@ export function useHomeTeasers(date: string): TeaserCardProps[] {
       : 'No record for this date';
   const wxBg = wx ? weatherGradient(wx.weatherCode) : FALLBACK.weather;
 
-  const events = history.data?.events ?? [];
-  const feat = featuredEvent(events, year);
+  const highlights = history.data ?? [];
+  const feat = featuredEvent(highlights, year);
   const histHeadline = history.isPending
     ? 'Opening the archive…'
     : history.data
       ? feat
         ? truncate(feat.text, 120)
-        : 'Events recorded'
-      : 'Events unavailable';
-  const histBg = feat?.pages[0]?.thumbnail
-    ? `url("${feat.pages[0].thumbnail.source}")`
-    : FALLBACK.history;
+        : 'Highlights recorded'
+      : 'Highlights unavailable';
+  const histImage = feat?.pages[0]?.thumbnail?.source;
 
   return [
     {
@@ -74,7 +72,9 @@ export function useHomeTeasers(date: string): TeaserCardProps[] {
       eyebrow: 'The sky above',
       headline: skyHeadline,
       description: 'Discover the universe as captured on this day.',
-      background: skyBg,
+      background: FALLBACK.sky,
+      image: skyImage,
+      loading: apod.isPending,
     },
     {
       to: `/weather${search}`,
@@ -84,6 +84,7 @@ export function useHomeTeasers(date: string): TeaserCardProps[] {
       headline: wxHeadline,
       description: 'What did the world feel like on this day?',
       background: wxBg,
+      loading: weather.isPending,
     },
     {
       to: `/history${search}`,
@@ -92,9 +93,11 @@ export function useHomeTeasers(date: string): TeaserCardProps[] {
       eyebrow: 'History in motion',
       headline: histHeadline,
       description: history.data
-        ? `${events.length} events on this day.`
+        ? `${highlights.length} highlights on this day.`
         : 'Discover the moments that changed history.',
-      background: histBg,
+      background: FALLBACK.history,
+      image: histImage,
+      loading: history.isPending,
     },
   ];
 }

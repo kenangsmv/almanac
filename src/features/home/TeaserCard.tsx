@@ -1,5 +1,5 @@
 import { Link as RouterLink } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
+import { Box, Skeleton, Typography } from '@mui/material';
 import { Eyebrow } from '../../components/Eyebrow';
 
 export interface TeaserCardProps {
@@ -10,6 +10,8 @@ export interface TeaserCardProps {
   headline: string;
   description: string;
   background: string;
+  image?: string;
+  loading?: boolean;
 }
 
 export function TeaserCard({
@@ -20,6 +22,8 @@ export function TeaserCard({
   headline,
   description,
   background,
+  image,
+  loading,
 }: TeaserCardProps) {
   return (
     <Box
@@ -52,6 +56,24 @@ export function TeaserCard({
           backgroundPosition: 'center',
         }}
       />
+      {image && (
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: `url("${image}")`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+      )}
+      {loading && (
+        <Skeleton
+          variant="rectangular"
+          animation="wave"
+          sx={{ position: 'absolute', inset: 0, height: '100%', bgcolor: 'rgba(255, 255, 255, 0.06)' }}
+        />
+      )}
       <Box
         sx={{
           position: 'absolute',

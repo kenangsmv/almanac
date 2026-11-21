@@ -3,12 +3,14 @@ import { Eyebrow } from '../components/Eyebrow';
 import { DateNavigator } from '../features/date/DateNavigator';
 import { useSelectedDate } from '../features/date/useSelectedDate';
 import { TeaserCard } from '../features/home/TeaserCard';
+import { useHomePrefetch } from '../features/home/useHomePrefetch';
 import { useHomeTeasers } from '../features/home/useHomeTeasers';
 import { formatHuman } from '../lib/date';
 
 export function HomePage() {
   const { selectedDate } = useSelectedDate();
   const teasers = useHomeTeasers(selectedDate);
+  useHomePrefetch(selectedDate);
 
   return (
     <Box>
@@ -25,22 +27,10 @@ export function HomePage() {
 
       <Divider sx={{ my: 4 }} />
 
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 5, alignItems: 'flex-end' }}>
-        <Typography
-          sx={{
-            flex: '1 1 320px',
-            maxWidth: 520,
-            color: 'text.secondary',
-            fontSize: 18,
-            lineHeight: 1.6,
-          }}
-        >
-          Travel back in time and discover the sky, the weather, and the moments that
-          shaped the world on any day you choose.
-        </Typography>
-        <Box sx={{ flex: '1 1 380px' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
+        <Box>
           <Eyebrow>Choose a date</Eyebrow>
-          <Box sx={{ mt: 1.5 }}>
+          <Box sx={{ mt: 1.5, display: 'flex', justifyContent: 'center' }}>
             <DateNavigator />
           </Box>
           <Typography variant="h5" sx={{ mt: 1.5 }}>
