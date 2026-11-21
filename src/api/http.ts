@@ -23,9 +23,6 @@ export async function fetchJson<T>(
   try {
     response = await fetch(url, { signal });
   } catch (error) {
-    // Let React Query treat cancellations as cancellations, not failures.
-    // Match on `name`, not `instanceof DOMException`: abort errors can cross
-    // JS realms (e.g. undici under jsdom), where the instanceof check fails.
     if (error instanceof Error && error.name === 'AbortError') throw error;
     throw new AlmanacError(source, 'network', `${source} is unreachable`);
   }

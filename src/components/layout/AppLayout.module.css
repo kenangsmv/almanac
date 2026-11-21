@@ -26,7 +26,7 @@
 }
 
 .sectionNav {
-  display: flex;
+  display: none;
   gap: var(--space-6);
   margin: 0 auto;
 }
@@ -47,8 +47,31 @@
 }
 
 .nav {
-  display: flex;
+  display: none;
   gap: var(--space-7);
+}
+
+.hamburger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  padding: var(--space-1);
+  border: 0;
+  background: none;
+  color: var(--text);
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .sectionNav,
+  .nav {
+    display: flex;
+  }
+
+  .hamburger {
+    display: none;
+  }
 }
 
 .navLink {

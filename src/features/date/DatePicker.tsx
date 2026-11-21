@@ -5,7 +5,6 @@ import { toISODate, todayISO } from '../../lib/date';
 import { useSelectedDate } from './useSelectedDate';
 import styles from './DatePicker.module.css';
 
-/** Shared date control: prev/next/today navigation plus the calendar. */
 export function DatePicker() {
   const { selectedDate, setDate, goToPrevious, goToNext, goToToday } = useSelectedDate();
   const value = dayjs(selectedDate);

@@ -50,7 +50,6 @@ describe('BookmarksView', () => {
 
     await user.click(screen.getByRole('button', { name: 'Remove h title' }));
 
-    // Dialog is open, nothing removed yet.
     expect(screen.getByRole('dialog')).toBeInTheDocument();
     expect(useBookmarksStore.getState().bookmarks).toHaveLength(1);
 

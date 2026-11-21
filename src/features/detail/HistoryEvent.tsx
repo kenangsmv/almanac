@@ -25,9 +25,10 @@ export function HistoryEventSkeleton() {
 interface HistoryEventProps {
   item: OnThisDayItem;
   date: string;
+  onOpenSummary: (title: string) => void;
 }
 
-export function HistoryEvent({ item, date }: HistoryEventProps) {
+export function HistoryEvent({ item, date, onOpenSummary }: HistoryEventProps) {
   const year = Number(date.slice(0, 4));
   const page = item.pages[0];
   const image = page?.thumbnail?.source;
@@ -58,6 +59,15 @@ export function HistoryEvent({ item, date }: HistoryEventProps) {
         )}
         <div className={styles.actions}>
           <BookmarkButton bookmark={bookmark} />
+          {page && (
+            <button
+              type="button"
+              className={styles.details}
+              onClick={() => onOpenSummary(page.title)}
+            >
+              Details
+            </button>
+          )}
           {link && (
             <Link href={link} target="_blank" rel="noopener noreferrer" sx={{ fontSize: 13 }}>
               Read on Wikipedia ↗

@@ -30,9 +30,6 @@ function pad(value: number): string {
 
 export type OnThisDayType = 'selected' | 'events' | 'births' | 'deaths';
 
-// Each category has its own feed (e.g. `selected` ~150 KB, `events` ~590 KB)
-// that is far smaller than the combined `all` feed (~1.6 MB), so views fetch
-// only the category they render. The response is keyed by the type name.
 export function fetchOnThisDayCategory(
   type: OnThisDayType,
   month: number,

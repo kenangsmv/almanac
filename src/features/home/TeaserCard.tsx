@@ -16,8 +16,6 @@ export interface TeaserCardProps {
   loading?: boolean;
 }
 
-// The three home teasers are fed by independent queries that settle separately;
-// memoizing skips re-rendering the teasers whose (primitive) props are unchanged.
 function TeaserCardComponent({
   to,
   index,

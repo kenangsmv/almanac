@@ -14,7 +14,6 @@ export function CitySearch() {
   const [input, setInput] = useState('');
   const [query, setQuery] = useState('');
 
-  // Debounce so a keystroke burst hits the geocoding API once, not per letter.
   useEffect(() => {
     const timer = setTimeout(() => setQuery(input.trim()), 300);
     return () => clearTimeout(timer);

@@ -31,9 +31,6 @@ function toApodId(date: string): string {
   return date.replace(/-/g, '').slice(2);
 }
 
-// NASA's hdurl is a dynamic-resize endpoint (…?w=&h=&fit=clip) that defaults to
-// the full-resolution image (often multiple MB). Request a display-sized version
-// instead, preserving the aspect ratio, so first loads aren't gigantic downloads.
 const DISPLAY_WIDTH = 1200;
 
 function toDisplayImage(url: string | undefined): string | undefined {

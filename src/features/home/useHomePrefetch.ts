@@ -14,11 +14,6 @@ function warmImage(url: string) {
   img.src = url;
 }
 
-/**
- * Warms the adjacent days' data and images so stepping to the previous/next day
- * feels instant. Respects the query cache's staleTime, so already-cached days
- * are not re-fetched.
- */
 export function useHomePrefetch(date: string) {
   const queryClient = useQueryClient();
   const city = useLocationStore((state) => state.selectedCity);

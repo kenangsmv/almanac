@@ -4,10 +4,6 @@ import { HomePage } from '../pages/HomePage';
 import { DetailPage } from '../pages/DetailPage';
 import { BookmarksPage } from '../pages/BookmarksPage';
 
-/**
- * App routes. `AppLayout` is the shell; children render into its <Outlet/>.
- * The selected date rides along in the `?date=` query across all routes.
- */
 export const router = createBrowserRouter([
   {
     path: '/',

@@ -11,8 +11,6 @@ export interface Bookmark {
   subtitle?: string;
   imageUrl?: string;
   url?: string;
-  // Weather bookmarks carry their city so the link can restore it, not fall back
-  // to whatever city is currently selected.
   city?: City;
   date: string;
   savedAt: number;

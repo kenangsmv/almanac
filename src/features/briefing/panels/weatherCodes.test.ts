@@ -18,15 +18,15 @@ describe('describeWeatherCode', () => {
 
 describe('weatherGradient', () => {
   it('maps codes of the same category to the same gradient', () => {
-    expect(weatherGradient(0)).toBe(weatherGradient(1)); // both sun
+    expect(weatherGradient(0)).toBe(weatherGradient(1));
   });
 
   it('maps codes of different categories to different gradients', () => {
-    expect(weatherGradient(0)).not.toBe(weatherGradient(2)); // sun vs cloud
+    expect(weatherGradient(0)).not.toBe(weatherGradient(2));
   });
 
   it('falls back to the cloud gradient for null', () => {
-    expect(weatherGradient(null)).toBe(weatherGradient(2)); // 2 is cloud
+    expect(weatherGradient(null)).toBe(weatherGradient(2));
   });
 
   it('falls back to the cloud gradient for an unrecognised code', () => {
