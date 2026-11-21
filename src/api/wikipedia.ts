@@ -22,42 +22,29 @@ export interface OnThisDayItem {
   pages: WikiPage[];
 }
 
-export interface OnThisDay {
-  selected: OnThisDayItem[];
-  events: OnThisDayItem[];
-  births: OnThisDayItem[];
-  deaths: OnThisDayItem[];
-  holidays: OnThisDayItem[];
-}
-
 const REST_BASE = 'https://en.wikipedia.org/api/rest_v1';
 
 function pad(value: number): string {
   return String(value).padStart(2, '0');
 }
 
-export function fetchOnThisDay(
-  month: number,
-  day: number,
-  signal?: AbortSignal,
-): Promise<OnThisDay> {
-  const url = `${REST_BASE}/feed/onthisday/all/${pad(month)}/${pad(day)}`;
-  return fetchJson<OnThisDay>(url, 'Wikipedia On This Day', signal);
-}
+export type OnThisDayType = 'selected' | 'events' | 'births' | 'deaths';
 
-// The home teaser only needs one representative highlight, so it fetches the
-// curated `selected` feed (~200 KB) rather than the full `all` feed (~2 MB).
-export function fetchOnThisDaySelected(
+// Each category has its own feed (e.g. `selected` ~150 KB, `events` ~590 KB)
+// that is far smaller than the combined `all` feed (~1.6 MB), so views fetch
+// only the category they render. The response is keyed by the type name.
+export function fetchOnThisDayCategory(
+  type: OnThisDayType,
   month: number,
   day: number,
   signal?: AbortSignal,
 ): Promise<OnThisDayItem[]> {
-  const url = `${REST_BASE}/feed/onthisday/selected/${pad(month)}/${pad(day)}`;
-  return fetchJson<{ selected: OnThisDayItem[] }>(
+  const url = `${REST_BASE}/feed/onthisday/${type}/${pad(month)}/${pad(day)}`;
+  return fetchJson<Record<OnThisDayType, OnThisDayItem[]>>(
     url,
     'Wikipedia On This Day',
     signal,
-  ).then((data) => data.selected);
+  ).then((data) => data[type]);
 }
 
 export function fetchPageSummary(title: string, signal?: AbortSignal): Promise<WikiPage> {

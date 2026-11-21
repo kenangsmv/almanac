@@ -1,32 +1,38 @@
-import { Skeleton } from '@mui/material';
-import type { OnThisDay } from '../../api/wikipedia';
-import { AsyncState } from '../../components/AsyncState';
-import { useOnThisDay } from '../briefing/useOnThisDay';
+import { useState } from 'react';
+import { Box, Tab, Tabs } from '@mui/material';
+import type { OnThisDayType } from '../../api/wikipedia';
 import { useSelectedDate } from '../date/useSelectedDate';
-import { HistoryContent } from './HistoryContent';
+import { CategoryPanel } from './CategoryPanel';
 
-const loading = (
-  <>
-    <Skeleton height={60} />
-    <Skeleton />
-    <Skeleton />
-    <Skeleton />
-  </>
-);
-
-function hasNoEntries(data: OnThisDay): boolean {
-  return (
-    data.selected.length + data.events.length + data.births.length + data.deaths.length === 0
-  );
-}
+const CATEGORIES: { label: string; type: OnThisDayType }[] = [
+  { label: 'Highlights', type: 'selected' },
+  { label: 'Events', type: 'events' },
+  { label: 'Births', type: 'births' },
+  { label: 'Deaths', type: 'deaths' },
+];
 
 export function HistoryView() {
   const { selectedDate } = useSelectedDate();
-  const query = useOnThisDay(selectedDate);
+  const [tab, setTab] = useState(0);
 
   return (
-    <AsyncState query={query} loading={loading} isEmpty={hasNoEntries}>
-      {(data) => <HistoryContent data={data} date={selectedDate} />}
-    </AsyncState>
+    <Box>
+      <Tabs
+        value={tab}
+        onChange={(_, value) => setTab(value)}
+        textColor="primary"
+        indicatorColor="primary"
+        sx={{ mb: 1, borderBottom: 1, borderColor: 'divider' }}
+      >
+        {CATEGORIES.map((category) => (
+          <Tab
+            key={category.type}
+            label={category.label}
+            sx={{ letterSpacing: '0.08em', fontWeight: 600 }}
+          />
+        ))}
+      </Tabs>
+      <CategoryPanel type={CATEGORIES[tab].type} date={selectedDate} />
+    </Box>
   );
 }

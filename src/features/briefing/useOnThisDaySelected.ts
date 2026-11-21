@@ -1,15 +1,9 @@
-import { queryOptions, useQuery } from '@tanstack/react-query';
-import { fetchOnThisDaySelected } from '../../api/wikipedia';
-import { getMonthDay } from '../../lib/date';
+import { onThisDayCategoryQuery, useOnThisDayCategory } from './useOnThisDayCategory';
 
 export function onThisDaySelectedQuery(date: string) {
-  const { month, day } = getMonthDay(date);
-  return queryOptions({
-    queryKey: ['onThisDay', 'selected', month, day],
-    queryFn: ({ signal }) => fetchOnThisDaySelected(month, day, signal),
-  });
+  return onThisDayCategoryQuery('selected', date);
 }
 
 export function useOnThisDaySelected(date: string) {
-  return useQuery(onThisDaySelectedQuery(date));
+  return useOnThisDayCategory('selected', date);
 }

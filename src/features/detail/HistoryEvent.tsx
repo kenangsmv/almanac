@@ -1,6 +1,36 @@
-import { Box, Link, Typography } from '@mui/material';
+import { Box, Link, Skeleton, Typography } from '@mui/material';
 import type { OnThisDayItem } from '../../api/wikipedia';
 import { BookmarkButton } from '../bookmarks/BookmarkButton';
+
+// Mirrors the real item's grid and dimensions so the loading state doesn't shift
+// the layout when data arrives. Kept beside HistoryEvent to stay in sync with it.
+const rowSx = {
+  display: 'grid',
+  gridTemplateColumns: { xs: '1fr', sm: '120px 1fr' },
+  gap: { xs: 1.5, sm: 4 },
+  py: 4,
+  borderTop: 2,
+  borderColor: 'divider',
+} as const;
+
+export function HistoryEventSkeleton() {
+  return (
+    <Box sx={rowSx}>
+      <Box>
+        <Skeleton variant="text" width={90} sx={{ fontSize: 48, lineHeight: 0.95 }} />
+      </Box>
+      <Box>
+        <Skeleton variant="text" sx={{ fontSize: 16 }} />
+        <Skeleton variant="text" width="85%" sx={{ fontSize: 16, mb: 2 }} />
+        <Skeleton
+          variant="rounded"
+          sx={{ width: '100%', maxWidth: 420, height: 220, borderRadius: 2, mb: 2 }}
+        />
+        <Skeleton variant="text" width={160} sx={{ fontSize: 13 }} />
+      </Box>
+    </Box>
+  );
+}
 
 interface HistoryEventProps {
   item: OnThisDayItem;
@@ -26,16 +56,7 @@ export function HistoryEvent({ item, date }: HistoryEventProps) {
   };
 
   return (
-    <Box
-      sx={{
-        display: 'grid',
-        gridTemplateColumns: { xs: '1fr', sm: '120px 1fr' },
-        gap: { xs: 1.5, sm: 4 },
-        py: 4,
-        borderTop: 2,
-        borderColor: 'divider',
-      }}
-    >
+    <Box sx={rowSx}>
       <Box>
         <Typography variant="h3" sx={{ fontSize: 48, lineHeight: 0.95 }}>
           {item.year ?? '—'}
