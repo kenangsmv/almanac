@@ -10,7 +10,7 @@ const colors = {
   border: 'rgba(245, 245, 245, 0.12)',
 };
 
-const serif = '"Instrument Serif", Georgia, serif';
+const serif = '"Fraunces", Georgia, serif';
 
 export const theme = createTheme({
   palette: {
@@ -22,7 +22,7 @@ export const theme = createTheme({
     divider: colors.border,
   },
   typography: {
-    fontFamily: '"Archivo", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"DM Sans", "Helvetica", "Arial", sans-serif',
     h1: { fontFamily: serif, fontWeight: 400 },
     h2: { fontFamily: serif, fontWeight: 400 },
     h3: { fontFamily: serif, fontWeight: 400 },
