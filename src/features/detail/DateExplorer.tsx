@@ -26,7 +26,7 @@ export function DateExplorer() {
       }}
     >
       <Eyebrow>Date explorer</Eyebrow>
-      <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1.5, mt: 1.5 }}>
+      <Box sx={{ display: 'flex', alignItems: 'start', gap: 1.5, mt: 1.5 }}>
         <Typography variant="h1" sx={{ fontSize: 88, lineHeight: 0.9 }}>
           {value.date()}
         </Typography>
