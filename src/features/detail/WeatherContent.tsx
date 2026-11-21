@@ -17,7 +17,8 @@ export function WeatherContent({ weather }: WeatherContentProps) {
   const selectedCity = useLocationStore((state) => state.selectedCity);
 
   const condition = describeWeatherCode(weather.weatherCode);
-  const bigTemp = weather.tempMax != null ? `${Math.round(weather.tempMax)}°` : '—';
+  const bigTemp =
+    weather.tempMax != null ? `${Math.round(weather.tempMax)}°` : '—';
   const bookmark = {
     id: `weather:${weather.date}:${selectedCity.id}`,
     kind: 'weather' as const,

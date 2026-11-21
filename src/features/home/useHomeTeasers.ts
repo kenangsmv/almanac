@@ -2,7 +2,10 @@ import { useApod } from '../briefing/useApod';
 import { featuredEvent } from '../briefing/featuredEvent';
 import { useOnThisDaySelected } from '../briefing/useOnThisDaySelected';
 import { useWeather } from '../briefing/useWeather';
-import { describeWeatherCode, weatherGradient } from '../briefing/panels/weatherCodes';
+import {
+  describeWeatherCode,
+  weatherGradient,
+} from '../briefing/panels/weatherCodes';
 import { useLocationStore } from '../location/locationStore';
 import type { TeaserCardProps } from './TeaserCard';
 

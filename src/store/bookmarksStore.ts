@@ -34,7 +34,10 @@ export const useBookmarksStore = create<BookmarksState>()(
           state.bookmarks.some((b) => b.id === bookmark.id)
             ? state
             : {
-                bookmarks: [...state.bookmarks, { ...bookmark, savedAt: Date.now() }],
+                bookmarks: [
+                  ...state.bookmarks,
+                  { ...bookmark, savedAt: Date.now() },
+                ],
               },
         ),
       removeBookmark: (id) =>
@@ -48,9 +51,14 @@ export const useBookmarksStore = create<BookmarksState>()(
       version: 3,
       partialize: (state) => ({ bookmarks: state.bookmarks }),
       migrate: (persisted, version) => {
-        let bookmarks = (persisted as { bookmarks?: Bookmark[] } | undefined)?.bookmarks ?? [];
+        let bookmarks =
+          (persisted as { bookmarks?: Bookmark[] } | undefined)?.bookmarks ??
+          [];
         if (version < 2) bookmarks = [];
-        if (version < 3) bookmarks = bookmarks.filter((b) => b.kind !== 'history' || b.url != null);
+        if (version < 3)
+          bookmarks = bookmarks.filter(
+            (b) => b.kind !== 'history' || b.url != null,
+          );
         return { bookmarks };
       },
     },

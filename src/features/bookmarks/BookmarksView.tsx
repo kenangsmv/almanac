@@ -9,8 +9,8 @@ export function BookmarksView() {
   if (bookmarks.length === 0) {
     return (
       <p className={styles.empty}>
-        Nothing saved yet. Use the bookmark icon on a date, image, weather summary or
-        historical event to keep it here.
+        Nothing saved yet. Use the bookmark icon on a date, image, weather
+        summary or historical event to keep it here.
       </p>
     );
   }

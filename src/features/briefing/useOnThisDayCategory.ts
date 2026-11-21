@@ -1,5 +1,8 @@
 import { queryOptions, useQuery } from '@tanstack/react-query';
-import { fetchOnThisDayCategory, type OnThisDayType } from '../../api/wikipedia';
+import {
+  fetchOnThisDayCategory,
+  type OnThisDayType,
+} from '../../api/wikipedia';
 import { getMonthDay } from '../../lib/date';
 
 export function onThisDayCategoryQuery(type: OnThisDayType, date: string) {

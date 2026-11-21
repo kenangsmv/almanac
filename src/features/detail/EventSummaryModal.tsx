@@ -42,11 +42,15 @@ function SummaryBody({ title }: { title: string }) {
     <AsyncState query={query} loading={loadingNode}>
       {(page) => (
         <>
-          {page.thumbnail && <img className={styles.image} src={page.thumbnail.source} alt="" />}
+          {page.thumbnail && (
+            <img className={styles.image} src={page.thumbnail.source} alt="" />
+          )}
           <h2 id="summary-title" className={styles.title}>
             {page.title}
           </h2>
-          {page.description && <p className={styles.description}>{page.description}</p>}
+          {page.description && (
+            <p className={styles.description}>{page.description}</p>
+          )}
           <p className={styles.extract}>{page.extract}</p>
           <div className={styles.actions}>
             <BookmarkButton bookmark={bookmarkFor(page, selectedDate)} />
@@ -67,7 +71,11 @@ function SummaryBody({ title }: { title: string }) {
 
 export function EventSummaryModal({ title, onClose }: EventSummaryModalProps) {
   return (
-    <Modal open={title !== null} onClose={onClose} aria-labelledby="summary-title">
+    <Modal
+      open={title !== null}
+      onClose={onClose}
+      aria-labelledby="summary-title"
+    >
       <div className={styles.panel} tabIndex={-1}>
         <button
           type="button"

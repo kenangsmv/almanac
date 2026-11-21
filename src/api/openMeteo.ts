@@ -37,14 +37,62 @@ interface OpenMeteoResponse {
 }
 
 export const PRESET_CITIES: City[] = [
-  { id: 5128581, name: 'New York', country: 'United States', latitude: 40.71, longitude: -74.01 },
-  { id: 2643743, name: 'London', country: 'United Kingdom', latitude: 51.51, longitude: -0.13 },
-  { id: 1850147, name: 'Tokyo', country: 'Japan', latitude: 35.68, longitude: 139.69 },
-  { id: 2147714, name: 'Sydney', country: 'Australia', latitude: -33.87, longitude: 151.21 },
-  { id: 1275339, name: 'Mumbai', country: 'India', latitude: 19.08, longitude: 72.88 },
-  { id: 3448439, name: 'São Paulo', country: 'Brazil', latitude: -23.55, longitude: -46.63 },
-  { id: 360630, name: 'Cairo', country: 'Egypt', latitude: 30.04, longitude: 31.24 },
-  { id: 3413829, name: 'Reykjavik', country: 'Iceland', latitude: 64.15, longitude: -21.94 },
+  {
+    id: 5128581,
+    name: 'New York',
+    country: 'United States',
+    latitude: 40.71,
+    longitude: -74.01,
+  },
+  {
+    id: 2643743,
+    name: 'London',
+    country: 'United Kingdom',
+    latitude: 51.51,
+    longitude: -0.13,
+  },
+  {
+    id: 1850147,
+    name: 'Tokyo',
+    country: 'Japan',
+    latitude: 35.68,
+    longitude: 139.69,
+  },
+  {
+    id: 2147714,
+    name: 'Sydney',
+    country: 'Australia',
+    latitude: -33.87,
+    longitude: 151.21,
+  },
+  {
+    id: 1275339,
+    name: 'Mumbai',
+    country: 'India',
+    latitude: 19.08,
+    longitude: 72.88,
+  },
+  {
+    id: 3448439,
+    name: 'São Paulo',
+    country: 'Brazil',
+    latitude: -23.55,
+    longitude: -46.63,
+  },
+  {
+    id: 360630,
+    name: 'Cairo',
+    country: 'Egypt',
+    latitude: 30.04,
+    longitude: 31.24,
+  },
+  {
+    id: 3413829,
+    name: 'Reykjavik',
+    country: 'Iceland',
+    latitude: 64.15,
+    longitude: -21.94,
+  },
 ];
 
 const DAILY_PARAMS =
@@ -89,7 +137,10 @@ interface GeocodingResponse {
   results?: City[];
 }
 
-export function searchCities(query: string, signal?: AbortSignal): Promise<City[]> {
+export function searchCities(
+  query: string,
+  signal?: AbortSignal,
+): Promise<City[]> {
   const params = new URLSearchParams({
     name: query,
     count: '8',
@@ -124,7 +175,11 @@ export function fetchWeather(
     timezone: 'auto',
   });
 
-  return fetchJson<OpenMeteoResponse>(`${base}?${params}`, 'Open-Meteo', signal).then(
-    (response) => toWeather(response, date, archive ? 'archive' : 'forecast'),
+  return fetchJson<OpenMeteoResponse>(
+    `${base}?${params}`,
+    'Open-Meteo',
+    signal,
+  ).then((response) =>
+    toWeather(response, date, archive ? 'archive' : 'forecast'),
   );
 }

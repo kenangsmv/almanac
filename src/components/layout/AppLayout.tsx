@@ -68,7 +68,12 @@ export function AppLayout() {
         </div>
       </header>
 
-      <MobileNav open={menuOpen} onClose={closeMenu} pathname={pathname} search={search} />
+      <MobileNav
+        open={menuOpen}
+        onClose={closeMenu}
+        pathname={pathname}
+        search={search}
+      />
 
       <main className={styles.main}>
         <Outlet />

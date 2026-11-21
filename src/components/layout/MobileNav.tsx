@@ -1,6 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { PRIMARY_LINKS, SECTION_LINKS, isLinkActive, linkTarget, type NavItem } from './navConfig';
+import {
+  PRIMARY_LINKS,
+  SECTION_LINKS,
+  isLinkActive,
+  linkTarget,
+  type NavItem,
+} from './navConfig';
 import styles from './MobileNav.module.css';
 
 interface MobileNavProps {
@@ -39,12 +45,23 @@ export function MobileNav({ open, onClose, pathname, search }: MobileNavProps) {
   }, [open, onClose]);
 
   const itemClass = (to: string) =>
-    isLinkActive(pathname, to) ? `${styles.item} ${styles.itemActive}` : styles.item;
+    isLinkActive(pathname, to)
+      ? `${styles.item} ${styles.itemActive}`
+      : styles.item;
 
   return (
-    <div id="mobile-nav" className={`${styles.root} ${open ? styles.open : ''}`} aria-hidden={!open}>
+    <div
+      id="mobile-nav"
+      className={`${styles.root} ${open ? styles.open : ''}`}
+      aria-hidden={!open}
+    >
       <div className={styles.overlay} onClick={onClose} />
-      <div className={styles.panel} role="dialog" aria-modal="true" aria-label="Menu">
+      <div
+        className={styles.panel}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+      >
         <button
           type="button"
           ref={closeRef}
@@ -55,13 +72,19 @@ export function MobileNav({ open, onClose, pathname, search }: MobileNavProps) {
           ✕
         </button>
         {GROUPS.map((group) => (
-          <nav key={group.label} className={styles.group} aria-label={group.label}>
+          <nav
+            key={group.label}
+            className={styles.group}
+            aria-label={group.label}
+          >
             {group.links.map((link) => (
               <RouterLink
                 key={link.to}
                 to={linkTarget(link.to, search)}
                 className={itemClass(link.to)}
-                aria-current={isLinkActive(pathname, link.to) ? 'page' : undefined}
+                aria-current={
+                  isLinkActive(pathname, link.to) ? 'page' : undefined
+                }
                 onClick={onClose}
               >
                 {link.label}

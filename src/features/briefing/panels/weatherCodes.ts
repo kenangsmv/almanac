@@ -1,4 +1,5 @@
-export type WeatherCategory = 'sun' | 'cloud' | 'fog' | 'rain' | 'snow' | 'storm';
+export type WeatherCategory =
+  'sun' | 'cloud' | 'fog' | 'rain' | 'snow' | 'storm';
 
 interface WeatherInfo {
   label: string;

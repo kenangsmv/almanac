@@ -4,7 +4,9 @@ import { RichText } from './RichText';
 
 describe('RichText', () => {
   it('renders an <a> as a link opening safely in a new tab', () => {
-    render(<RichText html='Processing - <a href="http://example.com/rolf">Rolf Olsen</a>' />);
+    render(
+      <RichText html='Processing - <a href="http://example.com/rolf">Rolf Olsen</a>' />,
+    );
 
     const link = screen.getByRole('link', { name: 'Rolf Olsen' });
     expect(link).toHaveAttribute('href', 'http://example.com/rolf');

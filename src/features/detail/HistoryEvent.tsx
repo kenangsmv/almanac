@@ -7,14 +7,24 @@ export function HistoryEventSkeleton() {
   return (
     <div className={styles.row}>
       <div>
-        <Skeleton variant="text" width={90} sx={{ fontSize: 48, lineHeight: 0.95 }} />
+        <Skeleton
+          variant="text"
+          width={90}
+          sx={{ fontSize: 48, lineHeight: 0.95 }}
+        />
       </div>
       <div>
         <Skeleton variant="text" sx={{ fontSize: 16 }} />
         <Skeleton variant="text" width="85%" sx={{ fontSize: 16, mb: 2 }} />
         <Skeleton
           variant="rounded"
-          sx={{ width: '100%', maxWidth: 420, height: 220, borderRadius: 2, mb: 2 }}
+          sx={{
+            width: '100%',
+            maxWidth: 420,
+            height: 220,
+            borderRadius: 2,
+            mb: 2,
+          }}
         />
         <Skeleton variant="text" width={160} sx={{ fontSize: 13 }} />
       </div>
@@ -34,8 +44,11 @@ export function HistoryEvent({ item, date, onOpenSummary }: HistoryEventProps) {
   const image = page?.thumbnail?.source;
   const link = page?.content_urls.desktop.page;
   const ago =
-    item.year != null && year - item.year > 0 ? `${year - item.year} years before ${year}` : '';
-  const title = item.text.length > 110 ? `${item.text.slice(0, 110)}…` : item.text;
+    item.year != null && year - item.year > 0
+      ? `${year - item.year} years before ${year}`
+      : '';
+  const title =
+    item.text.length > 110 ? `${item.text.slice(0, 110)}…` : item.text;
   const bookmark = {
     id: `history:${date}:${item.year ?? ''}:${item.text}`,
     kind: 'history' as const,
@@ -69,7 +82,12 @@ export function HistoryEvent({ item, date, onOpenSummary }: HistoryEventProps) {
             </button>
           )}
           {link && (
-            <Link href={link} target="_blank" rel="noopener noreferrer" sx={{ fontSize: 13 }}>
+            <Link
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{ fontSize: 13 }}
+            >
               Read on Wikipedia ↗
             </Link>
           )}

@@ -5,7 +5,12 @@ export class AlmanacError extends Error {
   readonly kind: ErrorKind;
   readonly status?: number;
 
-  constructor(source: string, kind: ErrorKind, message: string, status?: number) {
+  constructor(
+    source: string,
+    kind: ErrorKind,
+    message: string,
+    status?: number,
+  ) {
     super(message);
     this.name = 'AlmanacError';
     this.source = source;

@@ -6,7 +6,8 @@ import { useSelectedDate } from './useSelectedDate';
 import styles from './DatePicker.module.css';
 
 export function DatePicker() {
-  const { selectedDate, setDate, goToPrevious, goToNext, goToToday } = useSelectedDate();
+  const { selectedDate, setDate, goToPrevious, goToNext, goToToday } =
+    useSelectedDate();
   const value = dayjs(selectedDate);
 
   const handleCalendar = (next: Dayjs | null) => {
@@ -42,11 +43,12 @@ export function DatePicker() {
           borderColor: '#a78bfa59',
           borderRadius: 2,
           width: '100%',
-          '& .MuiPickerDay-root.Mui-selected, & .MuiPickersDay-root.Mui-selected': {
-            backgroundColor: 'secondary.main',
-            color: 'secondary.contrastText',
-            '&:hover, &:focus': { backgroundColor: 'secondary.dark' },
-          },
+          '& .MuiPickerDay-root.Mui-selected, & .MuiPickersDay-root.Mui-selected':
+            {
+              backgroundColor: 'secondary.main',
+              color: 'secondary.contrastText',
+              '&:hover, &:focus': { backgroundColor: 'secondary.dark' },
+            },
           '& .MuiPickerDay-today': {
             borderColor: 'secondary.main',
           },

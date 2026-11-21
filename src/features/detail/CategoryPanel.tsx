@@ -21,10 +21,16 @@ interface CategoryPanelProps {
   type: OnThisDayType;
   date: string;
 }
-function orderItems(type: OnThisDayType, items: OnThisDayItem[], year: number): OnThisDayItem[] {
+function orderItems(
+  type: OnThisDayType,
+  items: OnThisDayItem[],
+  year: number,
+): OnThisDayItem[] {
   if (type === 'selected') {
     const featured = featuredEvent(items, year);
-    return featured ? [featured, ...items.filter((item) => item !== featured)] : items;
+    return featured
+      ? [featured, ...items.filter((item) => item !== featured)]
+      : items;
   }
   return [...items].sort((a, b) => (a.year ?? 0) - (b.year ?? 0));
 }
@@ -36,7 +42,11 @@ export function CategoryPanel({ type, date }: CategoryPanelProps) {
 
   return (
     <>
-      <AsyncState query={query} loading={loading} isEmpty={(items) => items.length === 0}>
+      <AsyncState
+        query={query}
+        loading={loading}
+        isEmpty={(items) => items.length === 0}
+      >
         {(items) => (
           <div className={styles.list}>
             {orderItems(type, items, year)
@@ -52,7 +62,10 @@ export function CategoryPanel({ type, date }: CategoryPanelProps) {
           </div>
         )}
       </AsyncState>
-      <EventSummaryModal title={summaryTitle} onClose={() => setSummaryTitle(null)} />
+      <EventSummaryModal
+        title={summaryTitle}
+        onClose={() => setSummaryTitle(null)}
+      />
     </>
   );
 }

@@ -28,8 +28,12 @@ export function useHomePrefetch(date: string) {
 
       const historyOptions = onThisDaySelectedQuery(adjacent);
       void queryClient.prefetchQuery(historyOptions).then(() => {
-        const items = queryClient.getQueryData<OnThisDayItem[]>(historyOptions.queryKey);
-        const feat = items ? featuredEvent(items, Number(adjacent.slice(0, 4))) : null;
+        const items = queryClient.getQueryData<OnThisDayItem[]>(
+          historyOptions.queryKey,
+        );
+        const feat = items
+          ? featuredEvent(items, Number(adjacent.slice(0, 4)))
+          : null;
         const source = feat?.pages[0]?.thumbnail?.source;
         if (source) warmImage(source);
       });

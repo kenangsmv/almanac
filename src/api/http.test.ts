@@ -15,7 +15,11 @@ describe('fetchJson', () => {
     server.use(http.get(URL, () => new HttpResponse(null, { status: 404 })));
     const err = await fetchJson(URL, 'Test').catch((e) => e);
     expect(err).toBeInstanceOf(AlmanacError);
-    expect(err).toMatchObject({ kind: 'not-found', status: 404, source: 'Test' });
+    expect(err).toMatchObject({
+      kind: 'not-found',
+      status: 404,
+      source: 'Test',
+    });
   });
 
   it('throws an http AlmanacError on other error statuses', async () => {

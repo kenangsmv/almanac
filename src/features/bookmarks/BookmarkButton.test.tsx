@@ -21,7 +21,9 @@ beforeEach(() => {
 describe('BookmarkButton', () => {
   it('shows the save label when the bookmark is not saved', () => {
     render(<BookmarkButton bookmark={bookmark} />);
-    expect(screen.getByRole('button', { name: 'Save bookmark' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Save bookmark' }),
+    ).toBeInTheDocument();
   });
 
   it('saves the bookmark and flips the label on click', async () => {
@@ -30,7 +32,9 @@ describe('BookmarkButton', () => {
 
     await user.click(screen.getByRole('button', { name: 'Save bookmark' }));
 
-    expect(screen.getByRole('button', { name: 'Remove bookmark' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Remove bookmark' }),
+    ).toBeInTheDocument();
     expect(useBookmarksStore.getState().bookmarks).toHaveLength(1);
   });
 
@@ -41,7 +45,9 @@ describe('BookmarkButton', () => {
 
     await user.click(screen.getByRole('button', { name: 'Remove bookmark' }));
 
-    expect(screen.getByRole('button', { name: 'Save bookmark' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Save bookmark' }),
+    ).toBeInTheDocument();
     expect(useBookmarksStore.getState().bookmarks).toEqual([]);
   });
 });

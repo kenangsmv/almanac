@@ -31,13 +31,21 @@ function TeaserCardComponent({
     <RouterLink to={to} className={styles.card}>
       <div className={styles.layer} style={{ background }} />
       {image && (
-        <div className={styles.image} style={{ backgroundImage: `url("${image}")` }} />
+        <div
+          className={styles.image}
+          style={{ backgroundImage: `url("${image}")` }}
+        />
       )}
       {loading && (
         <Skeleton
           variant="rectangular"
           animation="wave"
-          sx={{ position: 'absolute', inset: 0, height: '100%', bgcolor: 'rgba(255, 255, 255, 0.06)' }}
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            height: '100%',
+            bgcolor: 'rgba(255, 255, 255, 0.06)',
+          }}
         />
       )}
       <div className={styles.gradient} />

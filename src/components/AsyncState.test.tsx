@@ -8,13 +8,12 @@ function q<T>(partial: Partial<UseQueryResult<T>>): UseQueryResult<T> {
   return partial as UseQueryResult<T>;
 }
 
-function renderState<T>(query: UseQueryResult<T>, props?: Partial<Parameters<typeof AsyncState<T>>[0]>) {
+function renderState<T>(
+  query: UseQueryResult<T>,
+  props?: Partial<Parameters<typeof AsyncState<T>>[0]>,
+) {
   return render(
-    <AsyncState
-      query={query}
-      loading={<p>Loading…</p>}
-      {...props}
-    >
+    <AsyncState query={query} loading={<p>Loading…</p>} {...props}>
       {(data) => <p>Data: {String(data)}</p>}
     </AsyncState>,
   );
@@ -27,7 +26,9 @@ describe('AsyncState', () => {
   });
 
   it('renders an alert for a generic error', () => {
-    renderState(q({ isPending: false, isError: true, error: new Error('boom') }));
+    renderState(
+      q({ isPending: false, isError: true, error: new Error('boom') }),
+    );
     expect(screen.getByRole('alert')).toHaveTextContent('boom');
   });
 

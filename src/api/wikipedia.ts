@@ -44,7 +44,10 @@ export function fetchOnThisDayCategory(
   ).then((data) => data[type]);
 }
 
-export function fetchPageSummary(title: string, signal?: AbortSignal): Promise<WikiPage> {
+export function fetchPageSummary(
+  title: string,
+  signal?: AbortSignal,
+): Promise<WikiPage> {
   const url = `${REST_BASE}/page/summary/${encodeURIComponent(title)}`;
   return fetchJson<WikiPage>(url, 'Wikipedia', signal);
 }

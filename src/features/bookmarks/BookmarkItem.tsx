@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from '@mui/material';
 import type { Bookmark, BookmarkKind } from '../../store/bookmarksStore';
 import { useBookmarksStore } from '../../store/bookmarksStore';
 import { formatHuman } from '../../lib/date';
@@ -27,13 +34,18 @@ export function BookmarkItem({ bookmark }: BookmarkItemProps) {
     params.set('cityId', String(bookmark.city.id));
     params.set('cityName', bookmark.city.name);
   }
-  const to = { pathname: KIND_PATH[bookmark.kind], search: `?${params.toString()}` };
+  const to = {
+    pathname: KIND_PATH[bookmark.kind],
+    search: `?${params.toString()}`,
+  };
 
   const body = (
     <>
       <span className={styles.date}>{formatHuman(bookmark.date)}</span>
       <p className={styles.title}>{bookmark.title}</p>
-      {bookmark.subtitle && <p className={styles.subtitle}>{bookmark.subtitle}</p>}
+      {bookmark.subtitle && (
+        <p className={styles.subtitle}>{bookmark.subtitle}</p>
+      )}
     </>
   );
 
@@ -72,7 +84,8 @@ export function BookmarkItem({ bookmark }: BookmarkItemProps) {
         <DialogTitle>Remove bookmark?</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            “{bookmark.title}” will be removed from your bookmarks. This can’t be undone.
+            “{bookmark.title}” will be removed from your bookmarks. This can’t
+            be undone.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

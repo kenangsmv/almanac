@@ -22,14 +22,22 @@ export const useLocationStore = create<LocationState>()(
       setCity: (city) => set({ selectedCity: city, source: 'user' }),
       setDetectedCity: (city) =>
         set((state) =>
-          state.source === 'user' ? state : { selectedCity: city, source: 'geo' },
+          state.source === 'user'
+            ? state
+            : { selectedCity: city, source: 'geo' },
         ),
     }),
     {
       name: 'almanac-location',
       version: 2,
-      partialize: (state) => ({ selectedCity: state.selectedCity, source: state.source }),
-      migrate: () => ({ selectedCity: PRESET_CITIES[0], source: 'default' as CitySource }),
+      partialize: (state) => ({
+        selectedCity: state.selectedCity,
+        source: state.source,
+      }),
+      migrate: () => ({
+        selectedCity: PRESET_CITIES[0],
+        source: 'default' as CitySource,
+      }),
     },
   ),
 );

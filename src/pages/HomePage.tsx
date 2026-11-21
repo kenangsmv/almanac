@@ -20,8 +20,7 @@ export function HomePage() {
         <div>
           <Eyebrow>A digital time capsule</Eyebrow>
           <h1 className={styles.heroTitle}>
-            Every Date Has a{' '}
-            <em className={styles.accentEm}>Story.</em>
+            Every Date Has a <em className={styles.accentEm}>Story.</em>
           </h1>
         </div>
 

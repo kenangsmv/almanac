@@ -32,7 +32,12 @@
 .rangeBar {
   height: 4px;
   border-radius: var(--radius-lg);
-  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--text));
+  background: linear-gradient(
+    90deg,
+    var(--accent),
+    var(--accent-2),
+    var(--text)
+  );
 }
 
 .stats {

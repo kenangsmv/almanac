@@ -39,7 +39,9 @@ export function CitySearch() {
       onChange={(_, city) => {
         if (city) setCity(city);
       }}
-      renderInput={(params) => <TextField {...params} placeholder="Search a city…" />}
+      renderInput={(params) => (
+        <TextField {...params} placeholder="Search a city…" />
+      )}
     />
   );
 }

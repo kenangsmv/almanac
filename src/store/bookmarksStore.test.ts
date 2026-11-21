@@ -1,8 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import {
-  useBookmarksStore,
-  type BookmarkInput,
-} from './bookmarksStore';
+import { useBookmarksStore, type BookmarkInput } from './bookmarksStore';
 
 function mk(id: string): BookmarkInput {
   return { id, kind: 'history', title: id, date: '2024-07-04' };
@@ -47,6 +44,8 @@ describe('bookmarksStore', () => {
     const raw = localStorage.getItem('almanac-bookmarks');
     expect(raw).not.toBeNull();
     const persisted = JSON.parse(raw ?? '{}');
-    expect(persisted.state.bookmarks.map((b: { id: string }) => b.id)).toEqual(['a']);
+    expect(persisted.state.bookmarks.map((b: { id: string }) => b.id)).toEqual([
+      'a',
+    ]);
   });
 });
