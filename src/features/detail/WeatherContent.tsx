@@ -1,6 +1,5 @@
-import { Box, Chip, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import type { Weather } from '../../api/openMeteo';
-import { PRESET_CITIES } from '../../api/openMeteo';
 import { Eyebrow } from '../../components/Eyebrow';
 import { BookmarkButton } from '../bookmarks/BookmarkButton';
 import { describeWeatherCode } from '../briefing/panels/weatherCodes';
@@ -16,7 +15,6 @@ function formatTemp(value: number | null): string {
 
 export function WeatherContent({ weather }: WeatherContentProps) {
   const selectedCity = useLocationStore((state) => state.selectedCity);
-  const setCity = useLocationStore((state) => state.setCity);
 
   const condition = describeWeatherCode(weather.weatherCode);
   const bigTemp = weather.tempMax != null ? `${Math.round(weather.tempMax)}°` : '—';
@@ -36,18 +34,6 @@ export function WeatherContent({ weather }: WeatherContentProps) {
 
   return (
     <Box>
-      <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 3 }}>
-        {PRESET_CITIES.map((city) => (
-          <Chip
-            key={city.id}
-            label={city.name}
-            onClick={() => setCity(city)}
-            color={city.id === selectedCity.id ? 'primary' : 'default'}
-            variant={city.id === selectedCity.id ? 'filled' : 'outlined'}
-          />
-        ))}
-      </Box>
-
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <Box>
           <Typography

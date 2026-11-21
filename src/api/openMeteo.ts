@@ -85,6 +85,24 @@ function toWeather(
   };
 }
 
+interface GeocodingResponse {
+  results?: City[];
+}
+
+export function searchCities(query: string, signal?: AbortSignal): Promise<City[]> {
+  const params = new URLSearchParams({
+    name: query,
+    count: '8',
+    language: 'en',
+    format: 'json',
+  });
+  return fetchJson<GeocodingResponse>(
+    `https://geocoding-api.open-meteo.com/v1/search?${params}`,
+    'Open-Meteo',
+    signal,
+  ).then((response) => response.results ?? []);
+}
+
 export function fetchWeather(
   latitude: number,
   longitude: number,
