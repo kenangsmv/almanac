@@ -118,7 +118,16 @@ export function TeaserCard({
         </Box>
         <Box>
           <Eyebrow>{eyebrow}</Eyebrow>
-          <Typography variant="h4" sx={{ mt: 1, mb: 1.5, lineHeight: 1.05 }}>
+          <Typography
+            variant="h4"
+            sx={{
+              mt: 1,
+              mb: 1.5,
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
             {headline}
           </Typography>
           <Typography variant="body2" sx={{ color: '#e3e5e9', mb: 2.5 }}>
