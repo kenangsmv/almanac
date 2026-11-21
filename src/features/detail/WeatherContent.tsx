@@ -23,6 +23,7 @@ export function WeatherContent({ weather }: WeatherContentProps) {
     kind: 'weather' as const,
     title: `${bigTemp}C · ${condition}`,
     subtitle: selectedCity.name,
+    city: selectedCity,
     date: weather.date,
   };
   const stats = [

@@ -20,7 +20,14 @@ interface BookmarkItemProps {
 export function BookmarkItem({ bookmark }: BookmarkItemProps) {
   const removeBookmark = useBookmarksStore((state) => state.removeBookmark);
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const to = { pathname: KIND_PATH[bookmark.kind], search: `?date=${bookmark.date}` };
+  const params = new URLSearchParams({ date: bookmark.date });
+  if (bookmark.city) {
+    params.set('lat', String(bookmark.city.latitude));
+    params.set('lon', String(bookmark.city.longitude));
+    params.set('cityId', String(bookmark.city.id));
+    params.set('cityName', bookmark.city.name);
+  }
+  const to = { pathname: KIND_PATH[bookmark.kind], search: `?${params.toString()}` };
 
   const body = (
     <>

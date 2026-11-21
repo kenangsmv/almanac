@@ -4,6 +4,7 @@ import { AsyncState } from '../../components/AsyncState';
 import { useWeather } from '../briefing/useWeather';
 import { useSelectedDate } from '../date/useSelectedDate';
 import { CitySelector } from '../location/CitySelector';
+import { useCityFromSearch } from '../location/useCityFromSearch';
 import { useLocationStore } from '../location/locationStore';
 import { WeatherContent } from './WeatherContent';
 
@@ -28,6 +29,7 @@ function hasNoReading(weather: Weather): boolean {
 }
 
 export function WeatherView() {
+  useCityFromSearch();
   const { selectedDate } = useSelectedDate();
   const city = useLocationStore((state) => state.selectedCity);
   const query = useWeather(city.latitude, city.longitude, selectedDate);
