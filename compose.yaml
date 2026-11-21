@@ -6,3 +6,12 @@ services:
     ports:
       - '8080:80'
     restart: unless-stopped
+    healthcheck:
+      # busybox wget ships in nginx:alpine; --spider makes a HEAD-like check.
+      # Use 127.0.0.1, not localhost: nginx listens on IPv4 only, while
+      # localhost can resolve to IPv6 (::1) inside the container → refused.
+      test: ['CMD', 'wget', '-q', '--spider', 'http://127.0.0.1/']
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
