@@ -9,6 +9,7 @@ export interface Bookmark {
   title: string;
   subtitle?: string;
   imageUrl?: string;
+  url?: string;
   date: string;
   savedAt: number;
 }
@@ -42,9 +43,14 @@ export const useBookmarksStore = create<BookmarksState>()(
     }),
     {
       name: 'almanac-bookmarks',
-      version: 2,
+      version: 3,
       partialize: (state) => ({ bookmarks: state.bookmarks }),
-      migrate: () => ({ bookmarks: [] }),
+      migrate: (persisted, version) => {
+        let bookmarks = (persisted as { bookmarks?: Bookmark[] } | undefined)?.bookmarks ?? [];
+        if (version < 2) bookmarks = [];
+        if (version < 3) bookmarks = bookmarks.filter((b) => b.kind !== 'history' || b.url != null);
+        return { bookmarks };
+      },
     },
   ),
 );

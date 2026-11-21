@@ -43,14 +43,32 @@ describe('BookmarksView', () => {
     ]);
   });
 
-  it('removes an item through its remove button', async () => {
+  it('removes an item only after confirming in the dialog', async () => {
     useBookmarksStore.getState().addBookmark(mk('h', 'history'));
     const user = userEvent.setup();
     renderView();
 
     await user.click(screen.getByRole('button', { name: 'Remove h title' }));
 
+    // Dialog is open, nothing removed yet.
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(useBookmarksStore.getState().bookmarks).toHaveLength(1);
+
+    await user.click(screen.getByRole('button', { name: 'Remove' }));
+
     expect(screen.queryByText('h title')).not.toBeInTheDocument();
     expect(useBookmarksStore.getState().bookmarks).toEqual([]);
+  });
+
+  it('keeps the item when the confirmation is cancelled', async () => {
+    useBookmarksStore.getState().addBookmark(mk('h', 'history'));
+    const user = userEvent.setup();
+    renderView();
+
+    await user.click(screen.getByRole('button', { name: 'Remove h title' }));
+    await user.click(screen.getByRole('button', { name: 'Cancel' }));
+
+    expect(screen.getByText('h title')).toBeInTheDocument();
+    expect(useBookmarksStore.getState().bookmarks).toHaveLength(1);
   });
 });

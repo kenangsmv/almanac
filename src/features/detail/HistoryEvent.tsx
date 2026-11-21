@@ -21,6 +21,7 @@ export function HistoryEvent({ item, date }: HistoryEventProps) {
     title,
     subtitle: item.year != null ? String(item.year) : undefined,
     imageUrl: image,
+    url: link,
     date,
   };
 
