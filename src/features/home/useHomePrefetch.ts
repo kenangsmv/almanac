@@ -7,7 +7,7 @@ import { apodQuery } from '../briefing/useApod';
 import { onThisDaySelectedQuery } from '../briefing/useOnThisDaySelected';
 import { weatherQuery } from '../briefing/useWeather';
 import { useLocationStore } from '../location/locationStore';
-import { featuredEvent } from './useHomeTeasers';
+import { featuredEvent } from '../briefing/featuredEvent';
 
 function warmImage(url: string) {
   const img = new Image();

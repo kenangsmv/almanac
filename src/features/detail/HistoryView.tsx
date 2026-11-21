@@ -15,7 +15,9 @@ const loading = (
 );
 
 function hasNoEntries(data: OnThisDay): boolean {
-  return data.events.length + data.births.length + data.deaths.length === 0;
+  return (
+    data.selected.length + data.events.length + data.births.length + data.deaths.length === 0
+  );
 }
 
 export function HistoryView() {
