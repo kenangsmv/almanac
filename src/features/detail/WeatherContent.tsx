@@ -1,9 +1,9 @@
-import { Box, Typography } from '@mui/material';
 import type { Weather } from '../../api/openMeteo';
 import { Eyebrow } from '../../components/Eyebrow';
 import { BookmarkButton } from '../bookmarks/BookmarkButton';
 import { describeWeatherCode } from '../briefing/panels/weatherCodes';
 import { useLocationStore } from '../location/locationStore';
+import styles from './WeatherContent.module.css';
 
 interface WeatherContentProps {
   weather: Weather;
@@ -34,60 +34,34 @@ export function WeatherContent({ weather }: WeatherContentProps) {
   ];
 
   return (
-    <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <Box>
-          <Typography
-            variant="h2"
-            sx={{ fontSize: 'clamp(4rem, 14vw, 10rem)', lineHeight: 0.85 }}
-          >
-            {bigTemp}
-          </Typography>
-          <Typography variant="h4" sx={{ mt: 1 }}>
-            {condition}
-          </Typography>
-        </Box>
+    <div>
+      <div className={styles.header}>
+        <div>
+          <p className={styles.bigTemp}>{bigTemp}</p>
+          <h2 className={styles.condition}>{condition}</h2>
+        </div>
         <BookmarkButton bookmark={bookmark} />
-      </Box>
+      </div>
 
-      <Box sx={{ mt: 3, maxWidth: 420 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1, fontSize: 13 }}>
+      <div className={styles.range}>
+        <div className={styles.rangeLabels}>
           <span>Low {formatTemp(weather.tempMin)}</span>
           <span>High {formatTemp(weather.tempMax)}</span>
-        </Box>
-        <Box
-          sx={{
-            height: 4,
-            borderRadius: 2,
-            background:
-              'linear-gradient(90deg, var(--accent), var(--accent-2), var(--text))',
-          }}
-        />
-      </Box>
+        </div>
+        <div className={styles.rangeBar} />
+      </div>
 
-      <Box
-        sx={{
-          mt: 4,
-          pt: 2,
-          borderTop: 2,
-          borderColor: 'divider',
-          display: 'grid',
-          gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(4, 1fr)' },
-          gap: 2,
-        }}
-      >
+      <div className={styles.stats}>
         {stats.map((stat) => (
-          <Box key={stat.label}>
+          <div key={stat.label}>
             <Eyebrow>{stat.label}</Eyebrow>
-            <Typography variant="h4" sx={{ mt: 0.5 }}>
+            <p className={styles.statValue}>
               {stat.value}
-              <Typography component="span" color="text.secondary" sx={{ fontSize: 16, ml: 0.5 }}>
-                {stat.unit}
-              </Typography>
-            </Typography>
-          </Box>
+              <span className={styles.statUnit}>{stat.unit}</span>
+            </p>
+          </div>
         ))}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 }

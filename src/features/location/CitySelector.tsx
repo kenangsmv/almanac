@@ -1,14 +1,15 @@
-import { Box, Chip } from '@mui/material';
+import { Chip } from '@mui/material';
 import { PRESET_CITIES } from '../../api/openMeteo';
 import { CitySearch } from './CitySearch';
 import { useLocationStore } from './locationStore';
+import styles from './CitySelector.module.css';
 
 export function CitySelector() {
   const selectedCity = useLocationStore((state) => state.selectedCity);
   const setCity = useLocationStore((state) => state.setCity);
 
   return (
-    <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center', mb: 3 }}>
+    <div className={styles.selector}>
       {PRESET_CITIES.map((city) => (
         <Chip
           key={city.id}
@@ -18,9 +19,9 @@ export function CitySelector() {
           variant={city.id === selectedCity.id ? 'filled' : 'outlined'}
         />
       ))}
-      <Box sx={{ ml: 'auto' }}>
+      <div className={styles.searchWrap}>
         <CitySearch />
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 }

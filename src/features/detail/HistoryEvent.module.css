@@ -1,0 +1,51 @@
+/* Skeleton and the real row share .row so the loading state doesn't shift layout. */
+.row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  padding: var(--space-8) 0;
+  border-top: 2px solid var(--border);
+}
+
+.year {
+  margin: 0;
+  font-size: var(--num-lg);
+  line-height: 0.95;
+}
+
+.ago {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-2xs);
+  color: var(--muted);
+}
+
+.text {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-md);
+  line-height: 1.55;
+  color: var(--text-soft);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-4);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+@media (min-width: 600px) {
+  .row {
+    grid-template-columns: 120px 1fr;
+    gap: var(--space-8);
+  }
+}

@@ -31,25 +31,4 @@ export const theme = createTheme({
     h6: { fontFamily: serif, fontWeight: 400 },
   },
   shape: { borderRadius: 14 },
-  components: {
-    MuiCssBaseline: {
-      styleOverrides: {
-        ':root': {
-          '--bg': colors.bg,
-          '--surface': colors.surface,
-          '--accent': colors.accent,
-          '--accent-2': colors.accent2,
-          '--text': colors.text,
-          '--muted': colors.muted,
-          '--border': colors.border,
-        },
-        body: {
-          backgroundColor: colors.bg,
-          backgroundImage:
-            'radial-gradient(1200px 600px at 80% -10%, rgba(124, 168, 255, 0.1), transparent 60%), radial-gradient(900px 500px at -10% 20%, rgba(167, 139, 250, 0.08), transparent 60%)',
-          backgroundRepeat: 'no-repeat',
-        },
-      },
-    },
-  },
 });

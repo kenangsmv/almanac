@@ -64,7 +64,11 @@ export function BookmarkItem({ bookmark }: BookmarkItemProps) {
       >
         ✕
       </button>
-      <Dialog open={confirmOpen} onClose={() => setConfirmOpen(false)}>
+      <Dialog
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        slotProps={{ paper: { className: styles.dialogPaper } }}
+      >
         <DialogTitle>Remove bookmark?</DialogTitle>
         <DialogContent>
           <DialogContentText>

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
-import { Box } from '@mui/material';
 import { DateExplorer } from './DateExplorer';
+import styles from './DetailLayout.module.css';
 
 interface DetailLayoutProps {
   children: ReactNode;
@@ -8,11 +8,11 @@ interface DetailLayoutProps {
 
 export function DetailLayout({ children }: DetailLayoutProps) {
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, alignItems: 'flex-start' }}>
-      <Box sx={{ flex: '1 1 320px', maxWidth: { md: 380 } }}>
+    <div className={styles.layout}>
+      <div className={styles.sidebar}>
         <DateExplorer />
-      </Box>
-      <Box sx={{ flex: '3 1 520px', minWidth: 0 }}>{children}</Box>
-    </Box>
+      </div>
+      <div className={styles.content}>{children}</div>
+    </div>
   );
 }

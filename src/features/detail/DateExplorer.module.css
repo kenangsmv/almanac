@@ -1,0 +1,36 @@
+.panel {
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+}
+
+.dateRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.dayNumber {
+  font-family: var(--font-serif);
+  font-size: var(--num-xl);
+  line-height: 0.9;
+}
+
+.month {
+  display: block;
+  font-size: var(--text-xl);
+  font-weight: var(--fw-semibold);
+}
+
+.sub {
+  display: block;
+  font-size: var(--text-base);
+  color: var(--muted);
+}
+
+@media (min-width: 900px) {
+  .panel {
+    position: sticky;
+    top: var(--header-offset);
+  }
+}

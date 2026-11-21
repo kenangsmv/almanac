@@ -1,107 +1,44 @@
-import { Box, Button, Typography } from '@mui/material';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import dayjs, { type Dayjs } from 'dayjs';
 import { Eyebrow } from '../components/Eyebrow';
+import { DatePicker } from '../features/date/DatePicker';
 import { useSelectedDate } from '../features/date/useSelectedDate';
 import { TeaserCard } from '../features/home/TeaserCard';
 import { useDetectedCity } from '../features/location/useDetectedCity';
 import { useHomePrefetch } from '../features/home/useHomePrefetch';
 import { useHomeTeasers } from '../features/home/useHomeTeasers';
-import { formatHuman, todayISO, toISODate } from '../lib/date';
+import { formatHuman } from '../lib/date';
+import styles from './HomePage.module.css';
 
 export function HomePage() {
-  const { selectedDate, setDate, goToToday } = useSelectedDate();
+  const { selectedDate } = useSelectedDate();
   useDetectedCity();
   const teasers = useHomeTeasers(selectedDate);
   useHomePrefetch(selectedDate);
 
-  const handleCalendar = (next: Dayjs | null) => {
-    if (next && next.isValid()) setDate(toISODate(next.toDate()));
-  };
-
   return (
-    <Box>
-      <Box
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: 4,
-          alignItems: 'start',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Box>
+    <div>
+      <div className={styles.hero}>
+        <div>
           <Eyebrow>A digital time capsule</Eyebrow>
-          <Typography
-            variant="h1"
-            sx={{
-              fontFamily: '"Bricolage Grotesque", sans-serif',
-              fontSize: 'clamp(3rem, 9vw, 8rem)',
-              lineHeight: 0.95,
-              mt: 2,
-              maxWidth: '11ch',
-            }}
-          >
+          <h1 className={styles.heroTitle}>
             Every Date Has a{' '}
-            <Box component="em" sx={{ color: 'secondary.main', fontStyle: 'italic' }}>
-              Story.
-            </Box>
-          </Typography>
-        </Box>
+            <em className={styles.accentEm}>Story.</em>
+          </h1>
+        </div>
 
-        <Box>
+        <div>
           <Eyebrow>Choose a date</Eyebrow>
-          <Typography variant="h5" sx={{ mt: 1 }}>
-            {formatHuman(selectedDate)}
-          </Typography>
-          <Box sx={{ width: 'fit-content', mt: 1 }}>
-            <DateCalendar
-              value={dayjs(selectedDate)}
-              onChange={handleCalendar}
-              minDate={dayjs('1940-01-01')}
-              disableFuture
-              sx={{
-                bgcolor: 'transparent',
-                border: 1,
-                borderColor: '#a78bfa59',
-                borderRadius: 2,
-                '& .MuiPickerDay-root.Mui-selected, & .MuiPickersDay-root.Mui-selected': {
-                  backgroundColor: 'secondary.main',
-                  color: 'secondary.contrastText',
-                  '&:hover, &:focus': { backgroundColor: 'secondary.dark' },
-                },
-                '& .MuiPickerDay-today':{
-                  borderColor: 'secondary.main',
-                }
-              }}
-            />
-            <Button
-              onClick={goToToday}
-              disabled={selectedDate === todayISO()}
-              variant="text"
-              color="secondary"
-              fullWidth
-              disableElevation
-              sx={{ mt: 1,  }}
-            >
-              Today
-            </Button>
-          </Box>
-        </Box>
-      </Box>
+          <p className={styles.chosenDate}>{formatHuman(selectedDate)}</p>
+          <div className={styles.calendarWrap}>
+            <DatePicker />
+          </div>
+        </div>
+      </div>
 
-      <Box
-        sx={{
-          mt: 6,
-          display: 'grid',
-          gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
-          gap: 3,
-        }}
-      >
+      <div className={styles.teaserGrid}>
         {teasers.map((teaser) => (
           <TeaserCard key={teaser.to} {...teaser} />
         ))}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 }

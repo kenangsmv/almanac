@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { UseQueryResult } from '@tanstack/react-query';
-import { Alert, Typography } from '@mui/material';
 import { AlmanacError } from '../api/http';
+import styles from './AsyncState.module.css';
 
 interface AsyncStateProps<T> {
   query: UseQueryResult<T>;
@@ -18,14 +18,20 @@ export function AsyncState<T>({
   emptyMessage = 'No data for this date.',
   children,
 }: AsyncStateProps<T>) {
-  const empty = <Typography color="text.secondary">{emptyMessage}</Typography>;
+  const empty = <p className={styles.empty}>{emptyMessage}</p>;
 
   if (query.isPending) return <>{loading}</>;
 
   if (query.isError) {
     const notFound =
       query.error instanceof AlmanacError && query.error.kind === 'not-found';
-    return notFound ? empty : <Alert severity="error">{query.error.message}</Alert>;
+    return notFound ? (
+      empty
+    ) : (
+      <div role="alert" className={styles.error}>
+        {query.error.message}
+      </div>
+    );
   }
 
   if (isEmpty?.(query.data)) return empty;

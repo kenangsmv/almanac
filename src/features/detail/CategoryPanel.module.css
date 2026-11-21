@@ -1,0 +1,4 @@
+/* The first row drops its top border to match the loaded list below. */
+.list > :first-of-type {
+  border-top: 0;
+}

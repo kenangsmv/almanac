@@ -1,6 +1,8 @@
+import { memo } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box, Skeleton, Typography } from '@mui/material';
+import { Skeleton } from '@mui/material';
 import { Eyebrow } from '../../components/Eyebrow';
+import styles from './TeaserCard.module.css';
 
 export interface TeaserCardProps {
   to: string;
@@ -14,7 +16,9 @@ export interface TeaserCardProps {
   loading?: boolean;
 }
 
-export function TeaserCard({
+// The three home teasers are fed by independent queries that settle separately;
+// memoizing skips re-rendering the teasers whose (primitive) props are unchanged.
+function TeaserCardComponent({
   to,
   index,
   pill,
@@ -26,46 +30,10 @@ export function TeaserCard({
   loading,
 }: TeaserCardProps) {
   return (
-    <Box
-      component={RouterLink}
-      to={to}
-      sx={{
-        position: 'relative',
-        display: 'block',
-        height: { xs: 440, md: 600 },
-        borderRadius: 3,
-        overflow: 'hidden',
-        textDecoration: 'none',
-        color: 'text.primary',
-        boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)',
-        transition: 'transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s',
-        '&:hover': {
-          transform: 'translateY(-6px)',
-          boxShadow:
-            '0 40px 80px rgba(124, 168, 255, 0.18), 0 20px 40px rgba(0, 0, 0, 0.6)',
-        },
-        '&:hover .teaser-arrow': { transform: 'translateX(8px)' },
-      }}
-    >
-      <Box
-        sx={{
-          position: 'absolute',
-          inset: 0,
-          background,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
+    <RouterLink to={to} className={styles.card}>
+      <div className={styles.layer} style={{ background }} />
       {image && (
-        <Box
-          sx={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: `url("${image}")`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
+        <div className={styles.image} style={{ backgroundImage: `url("${image}")` }} />
       )}
       {loading && (
         <Skeleton
@@ -74,84 +42,24 @@ export function TeaserCard({
           sx={{ position: 'absolute', inset: 0, height: '100%', bgcolor: 'rgba(255, 255, 255, 0.06)' }}
         />
       )}
-      <Box
-        sx={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(180deg, rgba(8,11,20,.55) 0%, rgba(8,11,20,.05) 32%, rgba(8,11,20,.55) 62%, rgba(8,11,20,.96) 100%)',
-        }}
-      />
-      <Box
-        sx={{
-          position: 'relative',
-          height: '100%',
-          p: 3.5,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            fontSize: 11,
-            letterSpacing: '0.25em',
-          }}
-        >
+      <div className={styles.gradient} />
+      <div className={styles.content}>
+        <div className={styles.topRow}>
           <span>{index}</span>
-          <Box
-            component="span"
-            sx={{
-              border: '1px solid rgba(245, 245, 245, 0.4)',
-              px: 1.25,
-              py: 0.5,
-              borderRadius: 99,
-              bgcolor: 'rgba(8, 11, 20, 0.35)',
-              textTransform: 'uppercase',
-            }}
-          >
-            {pill}
-          </Box>
-        </Box>
-        <Box>
+          <span className={styles.pill}>{pill}</span>
+        </div>
+        <div>
           <Eyebrow>{eyebrow}</Eyebrow>
-          <Typography
-            variant="h4"
-            sx={{
-              mt: 1,
-              mb: 1.5,
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-            }}
-          >
-            {headline}
-          </Typography>
-          <Typography variant="body2" sx={{ color: '#e3e5e9', mb: 2.5 }}>
-            {description}
-          </Typography>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1.25,
-              pt: 2,
-              borderTop: '1px solid rgba(245, 245, 245, 0.25)',
-              fontSize: 13,
-              fontWeight: 600,
-              letterSpacing: '0.08em',
-            }}
-          >
+          <h3 className={styles.headline}>{headline}</h3>
+          <p className={styles.description}>{description}</p>
+          <div className={styles.exploreRow}>
             EXPLORE MORE
-            <Box component="span" className="teaser-arrow" sx={{ transition: 'transform .4s' }}>
-              →
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+            <span className={styles.arrow}>→</span>
+          </div>
+        </div>
+      </div>
+    </RouterLink>
   );
 }
+
+export const TeaserCard = memo(TeaserCardComponent);

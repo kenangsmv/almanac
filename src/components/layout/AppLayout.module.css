@@ -1,5 +1,4 @@
 .shell {
-  --content-width: 1440px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -9,7 +8,7 @@
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgba(8, 11, 20, 0.85);
+  background: var(--scrim-strong);
   backdrop-filter: blur(12px);
   border-bottom: 2px solid var(--border);
 }
@@ -17,18 +16,18 @@
 .headerInner {
   display: flex;
   align-items: center;
-  gap: 0.75rem 1.5rem;
+  gap: var(--space-3) var(--space-6);
   flex-wrap: wrap;
   width: 100%;
   max-width: var(--content-width);
   margin: 0 auto;
-  padding: 1rem 2rem;
+  padding: var(--space-4) var(--space-8);
   box-sizing: border-box;
 }
 
 .sectionNav {
   display: flex;
-  gap: 1.5rem;
+  gap: var(--space-6);
   margin: 0 auto;
 }
 
@@ -40,27 +39,27 @@
 
 .title {
   color: var(--text);
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0.28em;
+  font-size: var(--text-base);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-widest);
   text-transform: uppercase;
   text-decoration: none;
 }
 
 .nav {
   display: flex;
-  gap: 1.75rem;
+  gap: var(--space-7);
 }
 
 .navLink {
-  padding: 0.25rem 0;
+  padding: var(--space-1) 0;
   color: var(--muted);
   text-decoration: none;
-  font-size: 0.875rem;
+  font-size: var(--text-base);
   border-bottom: 2px solid transparent;
   transition:
-    color 0.15s ease,
-    border-color 0.15s ease;
+    color var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
 .navLink:hover {
@@ -77,35 +76,35 @@
   width: 100%;
   max-width: var(--content-width);
   margin: 0 auto;
-  padding: 2rem;
+  padding: var(--space-8);
   box-sizing: border-box;
 }
 
 .footer {
   border-top: 2px solid var(--border);
   color: var(--muted);
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-tight);
 }
 
 .footerInner {
   width: 100%;
   max-width: var(--content-width);
   margin: 0 auto;
-  padding: 1.75rem 2rem;
+  padding: var(--space-7) var(--space-8);
   box-sizing: border-box;
 }
 
 @media (max-width: 600px) {
   .headerInner {
-    padding: 0.875rem 1.25rem;
+    padding: 0.875rem var(--space-5);
   }
 
   .main {
-    padding: 1.25rem;
+    padding: var(--space-5);
   }
 
   .footerInner {
-    padding: 1.75rem 1.25rem;
+    padding: var(--space-7) var(--space-5);
   }
 }

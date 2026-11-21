@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Tab, Tabs } from '@mui/material';
+import { Tab, Tabs } from '@mui/material';
 import type { OnThisDayType } from '../../api/wikipedia';
 import { useSelectedDate } from '../date/useSelectedDate';
 import { CategoryPanel } from './CategoryPanel';
@@ -16,7 +16,7 @@ export function HistoryView() {
   const [tab, setTab] = useState(0);
 
   return (
-    <Box>
+    <>
       <Tabs
         value={tab}
         onChange={(_, value) => setTab(value)}
@@ -33,6 +33,6 @@ export function HistoryView() {
         ))}
       </Tabs>
       <CategoryPanel type={CATEGORIES[tab].type} date={selectedDate} />
-    </Box>
+    </>
   );
 }
